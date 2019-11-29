@@ -1,19 +1,26 @@
 const { app, BrowserWindow, Menu } = require("electron");
 const path = require("path");
 
+
+require("electron-reload")(__dirname, {
+  electron: path.join(__dirname, "node_modules", ".bin", "electron")
+});
+
 let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
     show: false,
-    webPreferences: {}
+    webPreferences: {
+      preload: path.join(__dirname, "preload.js")
+    }
   });
 
   const menu = Menu.buildFromTemplate([]);
   // Menu.setApplicationMenu(menu);
   mainWindow.maximize();
   mainWindow.show();
-
+  mainWindow.autoHideMenuBar = true;
   mainWindow.loadFile("index.html");
 
   mainWindow.on("closed", function() {

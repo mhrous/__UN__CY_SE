@@ -1,19 +1,156 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Hello World!</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./assets/lib/argon.css" />
+    <link
+      rel="stylesheet"
+      href="./assets/lib/bootstrap-sweetalert/css/bootstrap-sweetalert.min.css"
+    />
+
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <title>Client</title>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
+    <main id="app">
+      <nav class="navbar bg-gradient-default">
+        <h2 class="navbar-brand" style="color: #fff;">
+          Name
+        </h2>
+        <div class="navbar-brand">
+          <h6 style="color: #fff;">id :{{transaction.from}}</h6>
+          <h6 style="color: #fff;">account:{{accountBalance}}</h6>
+        </div>
+      </nav>
+      <ul class="nav justify-content-center mt-2">
+        <li class="nav-item">
+          <button
+            class="btn btn-outline-primary ml-1"
+            :class="[activeTab=='__RT__'?'active':'']"
+            @click="activeTab='__RT__'"
+          >
+            Transfers received
+          </button>
+        </li>
 
-    <!-- You can also require other files to run in this process -->
-    <script src="./renderer.js"></script>
+        <li class="nav-item">
+          <button
+            class="btn btn-outline-primary ml-1"
+            :class="[activeTab=='__ST__'?'active':'']"
+            @click="activeTab='__ST__'"
+          >
+            Transfers sent
+          </button>
+        </li>
+        <li class="nav-item">
+          <button
+            class="btn btn-outline-primary ml-1"
+            @click="activeTab='__AT__'"
+            :class="[activeTab=='__AT__'?'active':'']"
+          >
+            Send money order
+          </button>
+        </li>
+      </ul>
+      <div class="p-3">
+        <div class="add-transction card" v-if="activeTab=='__AT__'">
+          <div class="card-body">
+            <div class="row ">
+              <div class="form-group has-danger col-6">
+                <input
+                  type="text"
+                  v-model="transaction.from"
+                  placeholder="id"
+                  class="form-control form-control-alternative is-invalid"
+                />
+              </div>
+              <div class="form-group has-danger col-6">
+                <input
+                  type="password"
+                  v-model="transaction.password"
+                  placeholder="password"
+                  class="form-control form-control-alternative is-invalid"
+                />
+              </div>
+            </div>
+            <div class="row ">
+              <div class="form-group has-danger col-6">
+                <input
+                  type="text"
+                  v-model="transaction.to"
+                  placeholder="to"
+                  class="form-control form-control-alternative is-invalid"
+                />
+              </div>
+              <div class="form-group has-danger col-6">
+                <input
+                  type="number"
+                  v-model="transaction.amount"
+                  placeholder="amount"
+                  min="0"
+                  step="500"
+                  class="form-control form-control-alternative is-invalid"
+                />
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group has-danger col-12 ">
+                <textarea
+                  type="text"
+                  v-model="transaction.reason"
+                  placeholder="reason"
+                  class="form-control form-control-alternative is-invalid"
+                ></textarea>
+              </div>
+            </div>
+
+            <div>
+              <button
+                class="btn btn-primary float-right"
+                @click="sendTransaction"
+              >
+                Send
+              </button>
+            </div>
+          </div>
+        </div>
+        <div v-if="activeTab=='__ST__'">
+          <table class="table">
+            <thead class="" style="color: #fff;background: #172b4d ;">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">الى</th>
+                <th scope="col">القيمة</th>
+
+                <th scope="col">السبب</th>
+                <th scope="col">التاريخ</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div v-if="activeTab=='__RT__'">
+          <table class="table">
+            <thead class="" style="color: #fff;background: #172b4d ;">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">من</th>
+                <th scope="col">القيمة</th>
+
+                <th scope="col">السبب</th>
+                <th scope="col">التاريخ</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <script src="./assets/lib/Socket.IO/Socket.IO.js"></script>
+    <script src="./assets/lib/vue/vue.min.js"></script>
+    <script src="./assets/lib/bootstrap-sweetalert/js/bootstrap-sweetalert.min.js"></script>
+    <script src="./assets/js/sokect.js"></script>
+    <script src="./assets/js/main.js"></script>
   </body>
 </html>
