@@ -1,0 +1,52 @@
+{
+  "coverage": "74.35%",
+  "expectCount": 39,
+  "actualCount": 29,
+  "files": {
+    "src/AsymmetricCryptography.js": {
+      "expectCount": 11,
+      "actualCount": 10,
+      "undocumentLines": [
+        27
+      ]
+    },
+    "src/help.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/HybridCryptography.js": {
+      "expectCount": 12,
+      "actualCount": 11,
+      "undocumentLines": [
+        37
+      ]
+    },
+    "src/SymmetricCryptography.js": {
+      "expectCount": 9,
+      "actualCount": 7,
+      "undocumentLines": [
+        27,
+        28
+      ]
+    },
+    "src/transaction.js": {
+      "expectCount": 2,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        4
+      ]
+    },
+    "src/user.js": {
+      "expectCount": 4,
+      "actualCount": 0,
+      "undocumentLines": [
+        1,
+        2,
+        4,
+        46
+      ]
+    }
+  }
+}

@@ -1,29 +1,55 @@
-const toJson = obj => JSON.parse(JSON.stringify(obj));
 const obj = new Vue({
   el: "#app",
   data: {
-    activeTab:"__RT__",
-    accountBalance: 555555,
-    transaction: {
-      from: 1111111111,
-      to: "",
-      amount: null,
-      reason: "",
-      password: ""
-    }
+    active: "add-transaction",
+    from: "",
+    password: "",
+    to: "",
+    amount: null,
+    reason: ""
   },
-
   methods: {
-    sendTransaction() {
-      const { from, to, amount, reason, password } = this.transaction;
-      if (!from || !to || !amount || !reason || !password) {
+    addTransaction() {
+      socket.off(ERROR);
+      socket.off(NO_ERROR);
+
+      const { from, password, to, amount, reason } = this.$data;
+
+      if (!from || !password || !to || !amount || !reason) {
         swal("error", "Some information is missing", "error");
         return;
       }
+      if (password.length < 8) {
+        swal("error", "password so week", "error");
+        return;
+      }
+      const clientTransactionId = new Date().getTime();
+      let data = { from, password, to, amount, reason, clientTransactionId };
+      if (REQUEST == 1) {
+        const { key, iv } = JSON.parse(KEY);
+        SymmetricCryptography.setKye(key);
+        SymmetricCryptography.setIv(iv);
+        data = SymmetricCryptography.encrypt(data);
+      } else {
+        SymmetricCryptography.setKye(HybridCryptography.symmetric.key);
+        SymmetricCryptography.setIv(HybridCryptography.symmetric.iv);
+        data = HybridCryptography.encrypt(data);
+      }
+
+      socket.emit(SEND_TRANSACTION, data);
+
+      socket.on(ERROR, data => {
+        data = SymmetricCryptography.decrypt(data, false);
+        swal("error", data, "error");
+      });
+      socket.on(NO_ERROR, () => {
+        swal("success", "Done ..", "success");
+      });
+      this.from = "";
+      this.password = "";
+      this.to = "";
+      this.amount = null;
+      this.reason = "";
     }
   }
 });
-
-const start = async () => {};
-
-start();
