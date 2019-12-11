@@ -34,25 +34,25 @@ const transactionSchema = new _mongoose.default.Schema({
 }, {
   timestamps: true
 });
-transactionSchema.pre("save", async function (next) {
+transactionSchema.post("save", async function () {
   const from = this.from;
   const to = this.to;
   const amount = this.amount;
-  await _user.default.findOneAndUpdate({
-    userName: from
-  }, {
-    $inc: {
-      amount: -1 * amount
-    }
-  }).lean().exec();
-  await _user.default.findOneAndUpdate({
-    userName: to
-  }, {
-    $inc: {
-      amount: amount
-    }
-  }).lean().exec();
-  next();
+
+  try {
+    await _user.default.findByIdAndUpdate(from, {
+      $inc: {
+        accountBalance: -1 * amount
+      }
+    }).lean().exec();
+    await _user.default.findByIdAndUpdate(to, {
+      $inc: {
+        accountBalance: amount
+      }
+    }).lean().exec();
+  } catch (e) {
+    console.error(e);
+  }
 });
 
 var _default = _mongoose.default.model("transaction", transactionSchema);

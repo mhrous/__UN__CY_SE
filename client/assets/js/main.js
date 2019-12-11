@@ -31,9 +31,10 @@ const obj = new Vue({
         SymmetricCryptography.setIv(iv);
         data = SymmetricCryptography.encrypt(data);
       } else {
+ 
+        data = HybridCryptography.encrypt(data);
         SymmetricCryptography.setKye(HybridCryptography.symmetric.key);
         SymmetricCryptography.setIv(HybridCryptography.symmetric.iv);
-        data = HybridCryptography.encrypt(data);
       }
 
       socket.emit(SEND_TRANSACTION, data);
@@ -42,8 +43,10 @@ const obj = new Vue({
         data = SymmetricCryptography.decrypt(data, false);
         swal("error", data, "error");
       });
-      socket.on(NO_ERROR, () => {
-        swal("success", "Done ..", "success");
+      socket.on(NO_ERROR, data => {
+        data = SymmetricCryptography.decrypt(data, false);
+
+        swal("success", data, "success");
       });
       this.from = "";
       this.password = "";

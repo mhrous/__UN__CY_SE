@@ -27,18 +27,23 @@ const transactionSchema = new mongoose.Schema(
     timestamps: true
   }
 );
-transactionSchema.pre("save", async function(next) {
+transactionSchema.post("save", async function() {
   const from = this.from;
   const to = this.to;
   const amount = this.amount;
-  await User.findOneAndUpdate(
-    { userName: from },
-    { $inc: { amount: -1 * amount } }
-  ).lean().exec();
+  try {
+    await User.findByIdAndUpdate(from, {
+      $inc: { accountBalance: -1 * amount }
+    })
+      .lean()
+      .exec();
 
-  await User.findOneAndUpdate({ userName: to }, { $inc: { amount: amount } }).lean().exec();
-
-  next();
+    await User.findByIdAndUpdate(to, { $inc: { accountBalance: amount } })
+      .lean()
+      .exec();
+  } catch (e) {
+    console.error(e);
+  }
 });
 
 export default mongoose.model("transaction", transactionSchema);

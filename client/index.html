@@ -96,7 +96,7 @@
                     v-model="from"
                     type="text"
                     @keyup.enter="addTransaction"
-                    @keyup.tab="$event.target.nextElementSibling.focus()"
+                    @keyup.tab="()=>$event.target.nextElementSibling.focus()"
                   />
                 </div>
               </div>
@@ -108,7 +108,7 @@
                     v-model="password"
                     type="password"
                     @keyup.enter="addTransaction"
-                    @keyup.tab="$event.target.nextElementSibling.focus()"
+                    @keyup.tab="()=>$event.target.nextElementSibling.focus()"
                   />
                 </div>
               </div>
@@ -122,7 +122,7 @@
                     type="text"
                     v-model="to"
                     @keyup.enter="addTransaction"
-                    @keyup.tab="$event.target.nextElementSibling.focus()"
+                    @keyup.tab="()=>$event.target.nextElementSibling.focus()"
                   />
                 </div>
               </div>
@@ -136,7 +136,7 @@
                     min="0"
                     step="500"
                     @keyup.enter="addTransaction"
-                    @keyup.tab="$event.target.nextElementSibling.focus()"
+                    @keyup.tab="()=>$event.target.nextElementSibling.focus()"
                   />
                 </div>
               </div>

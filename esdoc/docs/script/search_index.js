@@ -12,6 +12,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "esdoc/src/socketserver.js~socketserver",
+    "class/src/SocketServer.js~SocketServer.html",
+    "<span>SocketServer</span> <span class=\"search-result-import-path\">esdoc/src/SocketServer.js</span>",
+    "class"
+  ],
+  [
     "esdoc/src/symmetriccryptography.js~symmetriccryptography",
     "class/src/SymmetricCryptography.js~SymmetricCryptography.html",
     "<span>SymmetricCryptography</span> <span class=\"search-result-import-path\">esdoc/src/SymmetricCryptography.js</span>",
@@ -21,6 +27,12 @@ window.esdocSearchIndex = [
     "esdoc/src/help.js~generatekeys",
     "function/index.html#static-function-generateKeys",
     "<span>generateKeys</span> <span class=\"search-result-import-path\">esdoc/src/help.js</span>",
+    "function"
+  ],
+  [
+    "esdoc/src/validetransaction.js~validate",
+    "function/index.html#static-function-validate",
+    "<span>validate</span> <span class=\"search-result-import-path\">esdoc/src/valideTransaction.js</span>",
     "function"
   ],
   [
@@ -444,6 +456,30 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/socketserver.js",
+    "file/src/SocketServer.js.html",
+    "src/SocketServer.js",
+    "file"
+  ],
+  [
+    "src/socketserver.js~socketserver#constructor",
+    "class/src/SocketServer.js~SocketServer.html#instance-constructor-constructor",
+    "src/SocketServer.js~SocketServer#constructor",
+    "method"
+  ],
+  [
+    "src/socketserver.js~socketserver#init",
+    "class/src/SocketServer.js~SocketServer.html#instance-method-init",
+    "src/SocketServer.js~SocketServer#init",
+    "method"
+  ],
+  [
+    "src/socketserver.js~socketserver#start",
+    "class/src/SocketServer.js~SocketServer.html#instance-method-start",
+    "src/SocketServer.js~SocketServer#start",
+    "method"
+  ],
+  [
     "src/symmetriccryptography.js",
     "file/src/SymmetricCryptography.js.html",
     "src/SymmetricCryptography.js",
@@ -504,15 +540,9 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/transaction.js",
-    "file/src/transaction.js.html",
-    "src/transaction.js",
-    "file"
-  ],
-  [
-    "src/user.js",
-    "file/src/user.js.html",
-    "src/user.js",
+    "src/validetransaction.js",
+    "file/src/valideTransaction.js.html",
+    "src/valideTransaction.js",
     "file"
   ]
 ]

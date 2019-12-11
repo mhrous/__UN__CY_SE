@@ -569,7 +569,7 @@
     "name": "src/AsymmetricCryptography.js",
     "content": "import crypto from \"crypto\";\r\nimport { PASSPHRASE } from \"../config\";\r\n\r\n/**\r\n *  Node js الموجودة داخل  crypto  تشفير البيانات بطريقة غير متناظرة تم بناءه بالاعتماد على مكتبة\r\n * <br/>\r\n *  decrypt وتابع فك التشفير encrypt يحتوي تابعين رئيسين تابع تشفير\r\n * <br/>\r\n *الخاص بي private key  للشخص المراد ارسال الحوالة له وعملية فك التشفير تتم با  Public key عملية التشفير تتم ب\r\n *<br>\r\n *\r\n * @example\r\n * const asymmetric = new AsymmetricCryptography();\r\n * asymmetric.setPublicKey(MyPublickey);\r\n * asymmetric.setPrivateKey(MyPrivetKey);\r\n * asymmetric.setReceiverPublicKey(ReceiverPublicKey);\r\n * // can encrypt plain text or json object\r\n * const data = \"....\"\r\n * const enc = asymmetric.encrypt(data)\r\n * // default return data as json object if you wont return as text we have add option pramiter false\r\n * const dec = asymmetric.decrypt(enc)\r\n *\r\n *\r\n */\r\n\r\nclass AsymmetricCryptography {\r\n  constructor() {\r\n    /**\r\n     * @type {String}\r\n     */\r\n    this.publicKey = null;\r\n    /**\r\n     * @type {String}\r\n     */\r\n    this.privateKey = null;\r\n    /**\r\n     * @type {String}\r\n     */\r\n    this.receiverPublicKey = null;\r\n  }\r\n  /**\r\n   * @param {String} key  المفتاح العام بالمستقبل الذي سيتم التشفير بواستطه\r\n   */\r\n  setReceiverPublicKey(key) {\r\n    this.receiverPublicKey = key;\r\n  }\r\n  /**\r\n   * @param {String} key  المفتاح العام لي  الذي سيتم اعطائه للمستقبل اتشفير البيانات وارسالها الي\r\n   */\r\n  setPublicKey(key) {\r\n    this.publicKey = key;\r\n  }\r\n  /**\r\n   * @param {String} key  المفتاح الخاص لي  الذي سيتم عن طريقه فك المعلومات المشفرة المرسلة الي\r\n   */\r\n  setPrivateKey(key) {\r\n    this.privateKey = key;\r\n  }\r\n\r\n  /**\r\n   * @return {String} المفتاح العام لي  الذي سيتم اعطائه للمستقبل لتشفير البيانات وارسالها الي\r\n   */\r\n  getPublicKey() {\r\n    return this.publicKey;\r\n  }\r\n\r\n  /**\r\n   * للمستقبل public key تابع لتشفير الداتا حسب\r\n   * <br>\r\n   * stringify نقوم بتحويله الى نص عن طريق عملية  json object وتوابع التشفير المدعومة بالمكتبة لا تسطيع تشفير سوا النصوص لذلك عند ادخل josn object  نظامنا يعتمد على تبادل البيانات بشكل\r\n   * @param {String} data -النص المراد تشفيره\r\n   * @return {String} الداتا المشفرة ((يتم فك التشفير بالمفتاح الخاص بالمستقبل حصرا )) \r\n   */\r\n  encrypt(data) {\r\n    if (typeof data == \"object\") data = JSON.stringify(data);\r\n    const buffer = Buffer.from(data, \"utf8\");\r\n\r\n    const encrypted = crypto.publicEncrypt(this.receiverPublicKey, buffer);\r\n\r\n    return encrypted.toString(\"base64\");\r\n  }\r\n\r\n    /**\r\n   *  prive key تابع لفك تشفير الداتا حسب\r\n   * <br>\r\n   * @param {Object} data - الابجيكت المراد فك تشفيره\r\n   * @param {Boolean} returnJson -والا يرده كنص Json يرد الخرج   True متغير افتراضي في حال  \r\n   * @return {Object} ; نتيجة فك التشفير\r\n   */\r\n\r\n  decrypt(data, returnJson = true) {\r\n    const buffer = Buffer.from(data, \"base64\");\r\n    const decrypted = crypto.privateDecrypt(\r\n      { key: this.privateKey.toString(), passphrase: PASSPHRASE },\r\n      buffer\r\n    );\r\n    return returnJson\r\n      ? JSON.parse(decrypted.toString(\"utf8\"))\r\n      : decrypted.toString(\"utf8\");\r\n  }\r\n}\r\n\r\nexport default AsymmetricCryptography;\r\n",
     "static": true,
-    "longname": "C:/Users/Mahrous/Desktop/امن - Copy/esdoc/src/AsymmetricCryptography.js",
+    "longname": "C:/Users/Mahrous/Desktop/task/امن/__UN__CY_SE/esdoc/src/AsymmetricCryptography.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -845,7 +845,7 @@
     "name": "src/help.js",
     "content": "import { generateKeyPairSync } from \"crypto\";\r\nimport { PASSPHRASE } from \"../config\";\r\n\r\n/**\r\n *   تابع لتوليد زوج مفاتيح خاص وعام\r\n * <br>\r\n * res الخورزمية المستخدمة في التوليد\r\n *\r\n\r\n */\r\nexport const generateKeys = () =>\r\n  generateKeyPairSync(\"rsa\", {\r\n    modulusLength: 4096,\r\n    publicKeyEncoding: {\r\n      type: \"pkcs1\",\r\n      format: \"pem\"\r\n    },\r\n    privateKeyEncoding: {\r\n      type: \"pkcs1\",\r\n      format: \"pem\",\r\n      cipher: \"aes-256-cbc\",\r\n      passphrase: PASSPHRASE\r\n    }\r\n  });\r\n",
     "static": true,
-    "longname": "C:/Users/Mahrous/Desktop/امن - Copy/esdoc/src/help.js",
+    "longname": "C:/Users/Mahrous/Desktop/task/امن/__UN__CY_SE/esdoc/src/help.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -874,7 +874,7 @@
     "name": "src/HybridCryptography.js",
     "content": "import crypto from \"crypto\";\r\nimport SymmetricCryptography from \"./SymmetricCryptography\";\r\nimport AsymmetricCryptography from \"./AsymmetricCryptography\";\r\n\r\n/**\r\n * وبالاعتماد على  Node js الموجودة داخل  crypto  تشفير البيانات بطريقة هجينة تم بناءه بالاعتماد على مكتبة\r\n\r\n * <ul>\r\n * <li>  SymmetricCryptography class</li>\r\n * <li>  AsymmetricCryptography class</li>\r\n * </ul>\r\n * <br>\r\n *  decrypt وتابع فك التشفير encrypt يحتوي تابعين رئيسين تابع تشفير\r\n * <br/>\r\n *\r\n *<br>\r\n *\r\n * @example\r\n * const hybrid = new HybridCryptography();\r\n * const kye = crypto.randomBytes(32);\r\n * const iv = crypto.randomBytes(16);\r\n * hybrid.setKye(key);\r\n * hybrid.setIv(iv);\r\n * hybrid.setPublicKey(MyPublickey);\r\n * hybrid.setPrivateKey(MyPrivetKey);\r\n * hybrid.setReceiverPublicKey(ReceiverPublicKey);\r\n * // can encrypt plain text or json object\r\n * const data = \"....\"\r\n * const enc = hybrid.encrypt(data)\r\n * // default return data as json object if you wont return as text we have add option pramiter false\r\n * const dec = hybrid.decrypt(enc)\r\n *\r\n *\r\n */\r\n\r\nclass HybridCryptography {\r\n  constructor() {\r\n    /**\r\n     * @type {Object}\r\n     */\r\n    this.symmetric = new SymmetricCryptography();\r\n    /**\r\n     * @type {Object}\r\n     */\r\n    this.asymmetric = new AsymmetricCryptography();\r\n  }\r\n\r\n  /**\r\n   * @param {String} key  المفتاح العام بالمستقبل الذي سيتم تشفير مفتاح تشفير المتناظر بواستطه\r\n   */\r\n  setReceiverPublicKey(key) {\r\n    this.asymmetric.setReceiverPublicKey(key);\r\n  }\r\n  /**\r\n   * @param {String} key  المفتاح العام لي  الذي سيتم اعطائه للمستقبل لتشفير مفتاح التشفير المتناظر في الرسالة المرسلة  الي\r\n   */\r\n  setPublicKey(key) {\r\n    this.asymmetric.setPublicKey(key);\r\n  }\r\n\r\n  /**\r\n   * @param {String} key  المفتاح الخاص لي  الذي سيتم عن طريقه فك مفتاح التشفير المتناظر   في الرسالة  المرسلة الي\r\n   */\r\n  setPrivateKey(key) {\r\n    this.asymmetric.setPrivateKey(key);\r\n  }\r\n\r\n  /**\r\n   * @return {String} المفتاح العام لي  الذي سيتم اعطائه للمستقبل لتشفير مفتاح التشفير المنتاظر في الرسالة المرسلة الي\r\n   */\r\n  getPublicKey() {\r\n    return this.asymmetric.getPublicKey();\r\n  }\r\n\r\n  /**\r\n   * @param {Buffer} key -Buffer يتم تحويله بشكل تلقائي الى  json اذا تمت اضافته بشكل  Buffer المفتاح الخاص بالتشفير يجب ان يكون نوعه\r\n   */\r\n\r\n  setKye(key) {\r\n    this.symmetric.setKye(key);\r\n  }\r\n  /**\r\n   * @param {Buffer} iv -Buffer يتم تحويله بشكل تلقائي الى  json اذا تمت اضافته بشكل  Buffer مفتاح خاص تتطلبه خورزمية التشفير المستعملة  يجب ان يكون نوعه\r\n   */\r\n  setIv(iv) {\r\n    this.symmetric.setIv(iv);\r\n  }\r\n\r\n  /**\r\n   *  تابع لتشفير الداتا بطريقة هجينة  تتم عملية التشفير بعدة مراحل\r\n   * <ul>\r\n   * <li>بشكل عشوائي key , iv  توليد </li>\r\n   * <li>المولد  key , iv  تشفير مضمون الرسالة حسب </li>\r\n   * <li> للمستقبل publick key حسب  key , iv تشفير </li>\r\n   * </ul>\r\n   * <br>\r\n   * stringify نقوم بتحويله الى نص عن طريق عملية  json object وتوابع التشفير المدعومة بالمكتبة لا تسطيع تشفير سوا النصوص لذلك عند ادخل josn object  نظامنا يعتمد على تبادل البيانات بشكل\r\n   * @param {String} data -النص المراد تشفيره\r\n   * @return {object}  الداتا مشفرة بشكل متناظر مع مفتاح التشفير مشفر بشكل غير متناظر\r\n   */\r\n\r\n  encrypt(data) {\r\n    if (typeof data == \"object\") data = JSON.stringify(data);\r\n    const _kye = crypto.randomBytes(32);\r\n    const _iv = crypto.randomBytes(16);\r\n    this.setKye(_kye);\r\n    this.setIv(_iv);\r\n    const dataEncrypt = this.symmetric.encrypt(data);\r\n    const keyEncrypt = this.asymmetric.encrypt({ _kye, _iv });\r\n\r\n    return { dataEncrypt, keyEncrypt };\r\n  }\r\n\r\n  /**\r\n   *   تابع لفك تشفير الداتا حسب التشفير الهجين\r\n   * <br />\r\n   * تتم عملية فك التهجين بعدة مراحل \r\n   * <ul>\r\n   * <li> privet key فك مفتاح التشفير حسب </li>\r\n   * <li>   فك الرسالة حسب مفتاح التشفير  </li>\r\n\r\n   * </ul>\r\n   * @param {Object} data - الابجيكت المراد فك تشفيره\r\n   * @param {Boolean} returnJson -والا يرده كنص Json يرد الخرج   True متغير افتراضي في حال  \r\n   * @return {Object} ; نتيجة فك التشفير\r\n   */\r\n\r\n  decrypt(data, returnJson = true) {\r\n    const { dataEncrypt, keyEncrypt } = data;\r\n\r\n    const { _kye, _iv } = this.asymmetric.decrypt(keyEncrypt);\r\n    this.setKye(_kye);\r\n    this.setIv(_iv);\r\n    return returnJson\r\n      ? this.symmetric.decrypt(dataEncrypt)\r\n      : this.symmetric.decrypt(dataEncrypt, false);\r\n  }\r\n}\r\n\r\nexport default HybridCryptography;\r\n",
     "static": true,
-    "longname": "C:/Users/Mahrous/Desktop/امن - Copy/esdoc/src/HybridCryptography.js",
+    "longname": "C:/Users/Mahrous/Desktop/task/امن/__UN__CY_SE/esdoc/src/HybridCryptography.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -1180,16 +1180,133 @@
   {
     "__docId__": 78,
     "kind": "file",
-    "name": "src/SymmetricCryptography.js",
-    "content": "import crypto from \"crypto\";\r\n\r\n/**\r\n *  Node js الموجودة داخل  crypto  تشفير البيانات بطريقة متناظرة تم بناءه بالاعتماد على مكتبة\r\n * <br/>\r\n *  decrypt وتابع فك التشفير encrypt يحتوي تابعين رئيسين تابع تشفير\r\n * <br/>\r\n * iv و key لتشفير والتي تحتاج الى متغيران رئسيين   \"aes-256-cbc\" قمنا باستخدام خورزمية\r\n *<br>\r\n *\r\n * @example\r\n * const symmetric = new SymmetricCryptography();\r\n * const kye = crypto.randomBytes(32);\r\n * const iv = crypto.randomBytes(16);\r\n * symmetric.setKye(key);\r\n * symmetric.setIv(iv);\r\n * // can encrypt plain text or json object\r\n * const data = \"....\"\r\n * const enc = symmetric.encrypt(data)\r\n * // default return data as json object if you wont return as text we have add option pramiter false\r\n * const dec = symmetric.decrypt(enc)\r\n *\r\n *\r\n */\r\n\r\nclass SymmetricCryptography {\r\n  constructor() {\r\n    this.algorithm = \"aes-256-cbc\";\r\n    /**\r\n     * @type {Buffer}\r\n     */\r\n    this.key = null;\r\n    /**\r\n     * @type {Buffer}\r\n     */\r\n    this.iv = null;\r\n  }\r\n  /**\r\n   * @param {Buffer} key -Buffer يتم تحويله بشكل تلقائي الى  json اذا تمت اضافته بشكل  Buffer المفتاح الخاص بالتشفير يجب ان يكون نوعه\r\n   */\r\n  setKye(key) {\r\n    if (!Buffer.isBuffer(key)) this.key = Buffer.from(key.data);\r\n    else this.key = key;\r\n  }\r\n  /**\r\n   * @param {Buffer} iv -Buffer يتم تحويله بشكل تلقائي الى  json اذا تمت اضافته بشكل  Buffer مفتاح خاص تتطلبه خورزمية التشفير المستعملة  يجب ان يكون نوعه\r\n   */\r\n  setIv(iv) {\r\n    if (!Buffer.isBuffer(iv)) this.iv = Buffer.from(iv.data);\r\n    else this.iv = iv;\r\n  }\r\n\r\n  /**\r\n   * key و iv تابع لتشفير الداتا حسب\r\n   * <br>\r\n   * stringify نقوم بتحويله الى نص عن طريق عملية  json object وتوابع التشفير المدعومة بالمكتبة لا تسطيع تشفير سوا النصوص لذلك عند ادخل josn object  نظامنا يعتمد على تبادل البيانات بشكل\r\n   * @param {String} data -النص المراد تشفيره\r\n   * @return {Object} {iv:Buffer,encryptedData:String }; -المعتمد بالتشفير iv  الداتا المشفرة و\r\n   */\r\n  encrypt(data) {\r\n    if (typeof data == \"object\") data = JSON.stringify(data);\r\n    let cipher = crypto.createCipheriv(this.algorithm, this.key, this.iv);\r\n    let encrypted = cipher.update(data);\r\n    encrypted = Buffer.concat([encrypted, cipher.final()]);\r\n    return {\r\n      iv: this.iv.toString(\"hex\"),\r\n      encryptedData: encrypted.toString(\"hex\")\r\n    };\r\n  }\r\n\r\n  /**\r\n   * key و iv تابع لفك تشفير الداتا حسب\r\n   * <br>\r\n   * @param {Object} data - الابجيكت المراد فك تشفيره\r\n   * @param {Boolean} returnJson -والا يرده كنص Json يرد الخرج   True متغير افتراضي في حال  \r\n   * @return {Object} ; نتيجة فك التشفير\r\n   */\r\n  decrypt(data, returnJson = true) {\r\n    let encryptedText = Buffer.from(data.encryptedData, \"hex\");\r\n    let decipher = crypto.createDecipheriv(this.algorithm, this.key, this.iv);\r\n    let decrypted = decipher.update(encryptedText);\r\n    decrypted = Buffer.concat([decrypted, decipher.final()]);\r\n    return returnJson ? JSON.parse(decrypted.toString()) : decrypted.toString();\r\n  }\r\n}\r\n\r\nexport default SymmetricCryptography;\r\n",
+    "name": "src/SocketServer.js",
+    "content": "/**\r\n *\r\n * express , sokcket io الخاص بالسيرفر تم بنائه بالاعتماد على  sokcet\r\n *<br>\r\n *\r\n *مراحل عمله\r\n *\r\n * <ul>\r\n * <li>ينتظر اتصال كلاينت </li>\r\n * <li>Object عند اتصال كلاينت ينشى تلات\r\n * <ul>\r\n * <li>AsymmetricCryptography</li>\r\n * <li>HybridCryptography</li>\r\n * <li>SymmetricCryptography</li>\r\n * </ul>\r\n *\r\n *  </li>\r\n * <li> يرسل الببليك كي الخاص به الى الكليبت ليستطيع الكلاينت تشفير الداتا وارسالها اليه</li>\r\n\r\n * <li> ينتظر الكلاينت ليرسل له الببليك كي لكي يهيى المتغيرات</li>\r\n * <li> ينتظر حوالة من الكلينت ليقوم بمعالجتها</li>\r\n\r\n * </ul>\r\n */\r\nclass SocketServer {\r\n  constructor() {\r\n    // const { publicKey, privateKey } = generateKeys();\r\n    // this.publicKey = publicKey;\r\n    // this.privateKey = privateKey;\r\n    // this.init();\r\n  }\r\n\r\n  /**\r\n   *\r\n   * @emits {THIS_IS_MY_PUBLIC_KEY} يتم اطلاق هذا الحدث عند بدية كل اتصال بهدف ارسال مفتاح التشفير العام للسيرفر لكلينت المتصل\r\n   * @emits {ERROR} بعد معالجة الحوالة في حال وجود خطا يتم اطلاق هذا الحدث مع رسالة مشفرة تعبر عن الخطا.\r\n   * @emits {NO_ERROE} بعد معالجة الحوالة في حال  عدم وجود خطا يتم اطلاق هذا الحدث مع رسالة مشفرة تعبر عن كمية الرصيد المتبقي.\r\n   * @listens {connection} ينتظر حتى يتم الاتصال مع كلينت جديد\r\n   * @listens {disconnect} ينتظر حتى يتم قطع الاتصال\r\n   * @listens {THIS_IS_MY_PUBLIC_KEY} ينتظر حتى يرسل اللكليت الببلك كي الخاص به\r\n   * @listens {SEND_TRANSACTION} ينتظر حتى يقوم المستخدم بارسال حوالة جديدة\r\n   */\r\n\r\n  init() {\r\n    io.use(async (socket, next) => {\r\n      // console.log(socket.handshake.query);\r\n      // for authentication\r\n      next();\r\n    }).on(\"connection\", socket => {\r\n      const symmetric = new SymmetricCryptography();\r\n      const asymmetric = new AsymmetricCryptography();\r\n      asymmetric.setPrivateKey(this.privateKey);\r\n      asymmetric.setPublicKey(this.publicKey);\r\n      const hybrid = new HybridCryptography();\r\n      hybrid.setPrivateKey(this.privateKey);\r\n      hybrid.setPublicKey(this.publicKey);\r\n\r\n      const { key, iv } = JSON.parse(KEY);\r\n      symmetric.setKye(key);\r\n      symmetric.setIv(iv);\r\n\r\n      socket.emit(THIS_IS_MY_PUBLIC_KEY, this.publicKey);\r\n\r\n      socket.on(THIS_IS_MY_PUBLIC_KEY, data => {\r\n        asymmetric.setReceiverPublicKey(data);\r\n        hybrid.setReceiverPublicKey(data);\r\n      });\r\n\r\n      socket.on(SEND_TRANSACTION, async data => {\r\n        if (REQUEST == 1) {\r\n          symmetric.setKye(key);\r\n          symmetric.setIv(iv);\r\n          data = symmetric.decrypt(data);\r\n        } else if (REQUEST == 2) {\r\n          data = hybrid.decrypt(data);\r\n          symmetric.setKye(hybrid.symmetric.key);\r\n          symmetric.setIv(hybrid.symmetric.iv);\r\n        }\r\n\r\n        let { validate, _from, _to, rest } = await this.validate(data);\r\n        if (validate == NO_ERROR) {\r\n          Transaction.create(Object.assign({}, data, { to: _to, from: _from }));\r\n          rest = symmetric.encrypt(rest);\r\n          socket.emit(NO_ERROR, rest);\r\n        } else {\r\n          validate = symmetric.encrypt(validate);\r\n          socket.emit(ERROR, validate);\r\n        }\r\n      });\r\n\r\n      socket.on(\"disconnect\", reason => {});\r\n    });\r\n  }\r\n\r\n  start() {\r\n    server.close();\r\n    server.listen(PORT);\r\n  }\r\n}\r\nexport default SocketServer;\r\n",
     "static": true,
-    "longname": "C:/Users/Mahrous/Desktop/امن - Copy/esdoc/src/SymmetricCryptography.js",
+    "longname": "C:/Users/Mahrous/Desktop/task/امن/__UN__CY_SE/esdoc/src/SocketServer.js",
     "access": "public",
     "description": null,
     "lineNumber": 1
   },
   {
     "__docId__": 79,
+    "kind": "class",
+    "name": "SocketServer",
+    "memberof": "src/SocketServer.js",
+    "static": true,
+    "longname": "src/SocketServer.js~SocketServer",
+    "access": "public",
+    "export": true,
+    "importPath": "esdoc/src/SocketServer.js",
+    "importStyle": "SocketServer",
+    "description": "\nexpress , sokcket io الخاص بالسيرفر تم بنائه بالاعتماد على  sokcet\n<br>\n\nمراحل عمله\n\n<ul>\n<li>ينتظر اتصال كلاينت </li>\n<li>Object عند اتصال كلاينت ينشى تلات\n<ul>\n<li>AsymmetricCryptography</li>\n<li>HybridCryptography</li>\n<li>SymmetricCryptography</li>\n</ul>\n\n </li>\n<li> يرسل الببليك كي الخاص به الى الكليبت ليستطيع الكلاينت تشفير الداتا وارسالها اليه</li>\n\n<li> ينتظر الكلاينت ليرسل له الببليك كي لكي يهيى المتغيرات</li>\n<li> ينتظر حوالة من الكلينت ليقوم بمعالجتها</li>\n\n</ul>",
+    "lineNumber": 25,
+    "interface": false
+  },
+  {
+    "__docId__": 80,
+    "kind": "constructor",
+    "name": "constructor",
+    "memberof": "src/SocketServer.js~SocketServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/SocketServer.js~SocketServer#constructor",
+    "access": "public",
+    "description": null,
+    "lineNumber": 26,
+    "undocument": true
+  },
+  {
+    "__docId__": 81,
+    "kind": "method",
+    "name": "init",
+    "memberof": "src/SocketServer.js~SocketServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/SocketServer.js~SocketServer#init",
+    "access": "public",
+    "description": "",
+    "lineNumber": 44,
+    "emits": [
+      {
+        "types": [
+          "THIS_IS_MY_PUBLIC_KEY"
+        ],
+        "description": "يتم اطلاق هذا الحدث عند بدية كل اتصال بهدف ارسال مفتاح التشفير العام للسيرفر لكلينت المتصل"
+      },
+      {
+        "types": [
+          "ERROR"
+        ],
+        "description": "بعد معالجة الحوالة في حال وجود خطا يتم اطلاق هذا الحدث مع رسالة مشفرة تعبر عن الخطا."
+      },
+      {
+        "types": [
+          "NO_ERROE"
+        ],
+        "description": "بعد معالجة الحوالة في حال  عدم وجود خطا يتم اطلاق هذا الحدث مع رسالة مشفرة تعبر عن كمية الرصيد المتبقي."
+      }
+    ],
+    "listens": [
+      {
+        "types": [
+          "connection"
+        ],
+        "description": "ينتظر حتى يتم الاتصال مع كلينت جديد"
+      },
+      {
+        "types": [
+          "disconnect"
+        ],
+        "description": "ينتظر حتى يتم قطع الاتصال"
+      },
+      {
+        "types": [
+          "THIS_IS_MY_PUBLIC_KEY"
+        ],
+        "description": "ينتظر حتى يرسل اللكليت الببلك كي الخاص به"
+      },
+      {
+        "types": [
+          "SEND_TRANSACTION"
+        ],
+        "description": "ينتظر حتى يقوم المستخدم بارسال حوالة جديدة"
+      }
+    ],
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 82,
+    "kind": "method",
+    "name": "start",
+    "memberof": "src/SocketServer.js~SocketServer",
+    "generator": false,
+    "async": false,
+    "static": false,
+    "longname": "src/SocketServer.js~SocketServer#start",
+    "access": "public",
+    "description": null,
+    "lineNumber": 95,
+    "undocument": true,
+    "params": [],
+    "return": null
+  },
+  {
+    "__docId__": 83,
+    "kind": "file",
+    "name": "src/SymmetricCryptography.js",
+    "content": "import crypto from \"crypto\";\r\n\r\n/**\r\n *  Node js الموجودة داخل  crypto  تشفير البيانات بطريقة متناظرة تم بناءه بالاعتماد على مكتبة\r\n * <br/>\r\n *  decrypt وتابع فك التشفير encrypt يحتوي تابعين رئيسين تابع تشفير\r\n * <br/>\r\n * iv و key لتشفير والتي تحتاج الى متغيران رئسيين   \"aes-256-cbc\" قمنا باستخدام خورزمية\r\n *<br>\r\n *\r\n * @example\r\n * const symmetric = new SymmetricCryptography();\r\n * const kye = crypto.randomBytes(32);\r\n * const iv = crypto.randomBytes(16);\r\n * symmetric.setKye(key);\r\n * symmetric.setIv(iv);\r\n * // can encrypt plain text or json object\r\n * const data = \"....\"\r\n * const enc = symmetric.encrypt(data)\r\n * // default return data as json object if you wont return as text we have add option pramiter false\r\n * const dec = symmetric.decrypt(enc)\r\n *\r\n *\r\n */\r\n\r\nclass SymmetricCryptography {\r\n  constructor() {\r\n    this.algorithm = \"aes-256-cbc\";\r\n    /**\r\n     * @type {Buffer}\r\n     */\r\n    this.key = null;\r\n    /**\r\n     * @type {Buffer}\r\n     */\r\n    this.iv = null;\r\n  }\r\n  /**\r\n   * @param {Buffer} key -Buffer يتم تحويله بشكل تلقائي الى  json اذا تمت اضافته بشكل  Buffer المفتاح الخاص بالتشفير يجب ان يكون نوعه\r\n   */\r\n  setKye(key) {\r\n    if (!Buffer.isBuffer(key)) this.key = Buffer.from(key.data);\r\n    else this.key = key;\r\n  }\r\n  /**\r\n   * @param {Buffer} iv -Buffer يتم تحويله بشكل تلقائي الى  json اذا تمت اضافته بشكل  Buffer مفتاح خاص تتطلبه خورزمية التشفير المستعملة  يجب ان يكون نوعه\r\n   */\r\n  setIv(iv) {\r\n    if (!Buffer.isBuffer(iv)) this.iv = Buffer.from(iv.data);\r\n    else this.iv = iv;\r\n  }\r\n\r\n  /**\r\n   * key و iv تابع لتشفير الداتا حسب\r\n   * <br>\r\n   * json object وتوابع التشفير المدعومة بالمكتبة لا تسطيع تشفير سوا النصوص لذلك عند ادخل josn object  نظامنا يعتمد على تبادل البيانات بشكل\r\n   *<br />\r\n   *  stringify نقوم بتحويله الى نص عن طريق عملية\r\n   * @param {String} data -النص المراد تشفيره\r\n   * @return {Object} {iv:Buffer,encryptedData:String }; -المعتمد بالتشفير iv  الداتا المشفرة و\r\n   */\r\n  encrypt(data) {\r\n    if (typeof data == \"object\") data = JSON.stringify(data);\r\n    let cipher = crypto.createCipheriv(this.algorithm, this.key, this.iv);\r\n    let encrypted = cipher.update(data);\r\n    encrypted = Buffer.concat([encrypted, cipher.final()]);\r\n    return {\r\n      iv: this.iv.toString(\"hex\"),\r\n      encryptedData: encrypted.toString(\"hex\")\r\n    };\r\n  }\r\n\r\n  /**\r\n   * key و iv تابع لفك تشفير الداتا حسب\r\n   * <br>\r\n   * @param {Object} data - الابجيكت المراد فك تشفيره\r\n   * @param {Boolean} returnJson -والا يرده كنص Json يرد الخرج   True متغير افتراضي في حال\r\n   * @return {Object} ; نتيجة فك التشفير\r\n   */\r\n  decrypt(data, returnJson = true) {\r\n    let encryptedText = Buffer.from(data.encryptedData, \"hex\");\r\n    let decipher = crypto.createDecipheriv(this.algorithm, this.key, this.iv);\r\n    let decrypted = decipher.update(encryptedText);\r\n    decrypted = Buffer.concat([decrypted, decipher.final()]);\r\n    return returnJson ? JSON.parse(decrypted.toString()) : decrypted.toString();\r\n  }\r\n}\r\n\r\nexport default SymmetricCryptography;\r\n",
+    "static": true,
+    "longname": "C:/Users/Mahrous/Desktop/task/امن/__UN__CY_SE/esdoc/src/SymmetricCryptography.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 84,
     "kind": "class",
     "name": "SymmetricCryptography",
     "memberof": "src/SymmetricCryptography.js",
@@ -1207,7 +1324,7 @@
     "interface": false
   },
   {
-    "__docId__": 80,
+    "__docId__": 85,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/SymmetricCryptography.js~SymmetricCryptography",
@@ -1221,7 +1338,7 @@
     "undocument": true
   },
   {
-    "__docId__": 81,
+    "__docId__": 86,
     "kind": "member",
     "name": "algorithm",
     "memberof": "src/SymmetricCryptography.js~SymmetricCryptography",
@@ -1238,7 +1355,7 @@
     }
   },
   {
-    "__docId__": 82,
+    "__docId__": 87,
     "kind": "member",
     "name": "key",
     "memberof": "src/SymmetricCryptography.js~SymmetricCryptography",
@@ -1257,7 +1374,7 @@
     }
   },
   {
-    "__docId__": 83,
+    "__docId__": 88,
     "kind": "member",
     "name": "iv",
     "memberof": "src/SymmetricCryptography.js~SymmetricCryptography",
@@ -1276,7 +1393,7 @@
     }
   },
   {
-    "__docId__": 84,
+    "__docId__": 89,
     "kind": "method",
     "name": "setKye",
     "memberof": "src/SymmetricCryptography.js~SymmetricCryptography",
@@ -1302,7 +1419,7 @@
     "return": null
   },
   {
-    "__docId__": 87,
+    "__docId__": 92,
     "kind": "method",
     "name": "setIv",
     "memberof": "src/SymmetricCryptography.js~SymmetricCryptography",
@@ -1328,7 +1445,7 @@
     "return": null
   },
   {
-    "__docId__": 90,
+    "__docId__": 95,
     "kind": "method",
     "name": "encrypt",
     "memberof": "src/SymmetricCryptography.js~SymmetricCryptography",
@@ -1337,8 +1454,8 @@
     "static": false,
     "longname": "src/SymmetricCryptography.js~SymmetricCryptography#encrypt",
     "access": "public",
-    "description": "key و iv تابع لتشفير الداتا حسب\n<br>\nstringify نقوم بتحويله الى نص عن طريق عملية  json object وتوابع التشفير المدعومة بالمكتبة لا تسطيع تشفير سوا النصوص لذلك عند ادخل josn object  نظامنا يعتمد على تبادل البيانات بشكل",
-    "lineNumber": 60,
+    "description": "key و iv تابع لتشفير الداتا حسب\n<br>\njson object وتوابع التشفير المدعومة بالمكتبة لا تسطيع تشفير سوا النصوص لذلك عند ادخل josn object  نظامنا يعتمد على تبادل البيانات بشكل\n<br />\n stringify نقوم بتحويله الى نص عن طريق عملية",
+    "lineNumber": 62,
     "params": [
       {
         "nullable": null,
@@ -1361,7 +1478,7 @@
     }
   },
   {
-    "__docId__": 91,
+    "__docId__": 96,
     "kind": "method",
     "name": "decrypt",
     "memberof": "src/SymmetricCryptography.js~SymmetricCryptography",
@@ -1371,7 +1488,7 @@
     "longname": "src/SymmetricCryptography.js~SymmetricCryptography#decrypt",
     "access": "public",
     "description": "key و iv تابع لفك تشفير الداتا حسب\n<br>",
-    "lineNumber": 78,
+    "lineNumber": 80,
     "params": [
       {
         "nullable": null,
@@ -1404,167 +1521,57 @@
     }
   },
   {
-    "__docId__": 92,
-    "kind": "file",
-    "name": "src/transaction.js",
-    "content": "const mongoose = require(\"mongoose\")\r\n\r\n\r\nconst transactionSchema = new mongoose.Schema(\r\n  {\r\n    from: {\r\n      type: mongoose.Schema.Types.ObjectId,\r\n      ref: \"user\",\r\n      required: true\r\n    },\r\n    to: {\r\n      type: mongoose.Schema.Types.ObjectId,\r\n      ref: \"user\",\r\n      required: true\r\n    },\r\n    amount: {\r\n      type: Number,\r\n      min: 0\r\n    },\r\n    reason: String,\r\n    ClientTransactionId: {\r\n      type: Date,\r\n      default: new Date()\r\n    }\r\n  },\r\n  {\r\n    timestamps: true\r\n  }\r\n);\r\n\r\nmodule.exports = mongoose.model(\"transaction\", transactionSchema);\r\n",
-    "static": true,
-    "longname": "C:/Users/Mahrous/Desktop/امن - Copy/esdoc/src/transaction.js",
-    "access": "public",
-    "description": null,
-    "lineNumber": 1
-  },
-  {
-    "__docId__": 93,
-    "kind": "variable",
-    "name": "mongoose",
-    "memberof": "src/transaction.js",
-    "static": true,
-    "longname": "src/transaction.js~mongoose",
-    "access": "public",
-    "export": false,
-    "importPath": "esdoc/src/transaction.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 1,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 94,
-    "kind": "variable",
-    "name": "transactionSchema",
-    "memberof": "src/transaction.js",
-    "static": true,
-    "longname": "src/transaction.js~transactionSchema",
-    "access": "public",
-    "export": false,
-    "importPath": "esdoc/src/transaction.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 4,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 95,
-    "kind": "file",
-    "name": "src/user.js",
-    "content": "const mongoose = require(\"mongoose\");\r\nconst hash = require(\"object-hash\");\r\n\r\nconst userSchema = new mongoose.Schema(\r\n  {\r\n    userName: {\r\n      type: String,\r\n      required: true,\r\n      unique: true,\r\n      trim: true,\r\n      maxlength: 50,\r\n      minlength: 4\r\n    },\r\n    name: {\r\n      type: String,\r\n      required: true,\r\n      trim: true,\r\n      maxlength: 50\r\n    },\r\n    password: {\r\n      type: String,\r\n      required: true,\r\n      trim: true,\r\n      maxlength: 50,\r\n      minlength: 8\r\n    },\r\n\r\n    accountBalance: {\r\n      type: Number,\r\n      default: 0\r\n    }\r\n  },\r\n  {\r\n    timestamps: true\r\n  }\r\n);\r\n\r\nuserSchema.pre(\"save\", function(next) {\r\n  if (!this.isModified(\"password\")) {\r\n    return next();\r\n  }\r\n\r\n  this.password = hash(this.password);\r\n  next();\r\n});\r\nuserSchema.methods.checkPassword = function(password) {\r\n  const passwordHash = this.password;\r\n  password = hash(password);\r\n  return password == passwordHash;\r\n};\r\nmodule.exports = mongoose.model(\"user\", userSchema);\r\n",
-    "static": true,
-    "longname": "C:/Users/Mahrous/Desktop/امن - Copy/esdoc/src/user.js",
-    "access": "public",
-    "description": null,
-    "lineNumber": 1
-  },
-  {
-    "__docId__": 96,
-    "kind": "variable",
-    "name": "mongoose",
-    "memberof": "src/user.js",
-    "static": true,
-    "longname": "src/user.js~mongoose",
-    "access": "public",
-    "export": false,
-    "importPath": "esdoc/src/user.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 1,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
     "__docId__": 97,
-    "kind": "variable",
-    "name": "hash",
-    "memberof": "src/user.js",
+    "kind": "file",
+    "name": "src/valideTransaction.js",
+    "content": "/**\r\n *  تابع لفحص الحوالة المالية اذا كانت صالحة او لا\r\n * <br>\r\n * قمنا بمناقشة عدة حالات \r\n * <ul>\r\n * <li>انا يكون المرسل ليس لديه حساب </li>\r\n * <li>ان تكون كلمة سر حساب المرسل خطا</li>\r\n * <li>ان يكون المستقبل ليس لديه حساب</li>\r\n*  <li>عدم وجود رصيد كافي</li>\r\n*  <li>ارسال حوالة سالبة</li>\r\n*  <li>ان يرسل الشخص لنفسه</li>\r\n*  <li>ان تكون االحوالة مضافة من قبل</li>\r\n\r\n * </ul>\r\n *\r\n\r\n */\r\nexport async function validate({\r\n  from,\r\n  password,\r\n  amount,\r\n  to,\r\n  clientTransactionId\r\n}) {\r\n  try {\r\n    //\r\n    const user = await User.findOne({ userName: from }).exec();\r\n    if (user == null) return { validate: \"this acount dont exist\" };\r\n    //\r\n    const truePassword = user.checkPassword(password);\r\n    if (!truePassword) return { validate: \"password is error\" };\r\n    //\r\n    const isSame = to == from;\r\n    if (isSame) return { validate: \"cont transform to your self\" };\r\n\r\n    //\r\n    const resiver = await User.findOne({ userName: to })\r\n      .lean()\r\n      .exec();\r\n    if (resiver == null) return { validate: \"this no resever accont\" };\r\n\r\n    //\r\n    const haveMony = user.accountBalance >= amount;\r\n    if (!haveMony) return { validate: \"dont have envf mony\" };\r\n\r\n    const negativAmount = 0 >= amount;\r\n    if (negativAmount)\r\n      return { validate: \"Negative trainsaction cannot be transferred\" };\r\n\r\n    const TransactionId = await Transaction.findOne({\r\n      from: user._id,\r\n      clientTransactionId\r\n    })\r\n      .lean()\r\n      .exec();\r\n\r\n    if (TransactionId)\r\n      return {\r\n        validate:\r\n          \"A transfer has been added with this id. You cannot add it again\"\r\n      };\r\n\r\n    return {\r\n      validate: NO_ERROR,\r\n      _from: user._id,\r\n      _to: resiver._id,\r\n      rest: `Done ...\\nYour account remains${user.accountBalance - amount}`\r\n    };\r\n  } catch (e) {\r\n    console.error(e);\r\n    return { validate: \"error\" };\r\n  }\r\n}\r\n",
     "static": true,
-    "longname": "src/user.js~hash",
+    "longname": "C:/Users/Mahrous/Desktop/task/امن/__UN__CY_SE/esdoc/src/valideTransaction.js",
     "access": "public",
-    "export": false,
-    "importPath": "esdoc/src/user.js",
-    "importStyle": null,
     "description": null,
-    "lineNumber": 2,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
+    "lineNumber": 1
   },
   {
     "__docId__": 98,
-    "kind": "variable",
-    "name": "userSchema",
-    "memberof": "src/user.js",
-    "static": true,
-    "longname": "src/user.js~userSchema",
-    "access": "public",
-    "export": false,
-    "importPath": "esdoc/src/user.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 4,
-    "undocument": true,
-    "type": {
-      "types": [
-        "*"
-      ]
-    },
-    "ignore": true
-  },
-  {
-    "__docId__": 99,
     "kind": "function",
-    "name": "checkPassword",
-    "memberof": "src/user.js",
+    "name": "validate",
+    "memberof": "src/valideTransaction.js",
     "generator": false,
-    "async": false,
+    "async": true,
     "static": true,
-    "longname": "src/user.js~checkPassword",
+    "longname": "src/valideTransaction.js~validate",
     "access": "public",
-    "export": false,
-    "importPath": "esdoc/src/user.js",
-    "importStyle": null,
-    "description": null,
-    "lineNumber": 46,
-    "undocument": true,
+    "export": true,
+    "importPath": "esdoc/src/valideTransaction.js",
+    "importStyle": "{validate}",
+    "description": " تابع لفحص الحوالة المالية اذا كانت صالحة او لا\n<br>\nقمنا بمناقشة عدة حالات \n<ul>\n<li>انا يكون المرسل ليس لديه حساب </li>\n<li>ان تكون كلمة سر حساب المرسل خطا</li>\n<li>ان يكون المستقبل ليس لديه حساب</li>\n <li>عدم وجود رصيد كافي</li>\n <li>ارسال حوالة سالبة</li>\n <li>ان يرسل الشخص لنفسه</li>\n <li>ان تكون االحوالة مضافة من قبل</li>\n\n</ul>",
+    "lineNumber": 18,
     "params": [
       {
-        "name": "password",
+        "name": "objectPattern",
         "types": [
-          "*"
-        ]
+          "{\"from\": *, \"password\": *, \"amount\": *, \"to\": *, \"clientTransactionId\": *}"
+        ],
+        "defaultRaw": {
+          "from": null,
+          "password": null,
+          "amount": null,
+          "to": null,
+          "clientTransactionId": null
+        },
+        "defaultValue": "{\"from\":null,\"password\":null,\"amount\":null,\"to\":null,\"clientTransactionId\":null}"
       }
     ],
     "return": {
       "types": [
-        "*"
+        "{\"validate\": string}"
       ]
-    },
-    "ignore": true
+    }
   },
   {
     "kind": "index",
-    "content": "",
-    "longname": "C:\\Users\\Mahrous\\Desktop\\امن - Copy\\esdoc\\README.md",
+    "content": "# __UN__CY_SE",
+    "longname": "C:\\Users\\Mahrous\\Desktop\\task\\امن\\__UN__CY_SE\\esdoc\\README.md",
     "name": "./README.md",
     "static": true,
     "access": "public"
@@ -1572,7 +1579,7 @@
   {
     "kind": "packageJSON",
     "content": "{\r\n  \"name\": \"esdoc\",\r\n  \"version\": \"1.0.0\",\r\n  \"main\": \"index.js\",\r\n  \"license\": \"MIT\",\r\n  \"devDependencies\": {\r\n    \"esdoc\": \"^1.1.0\",\r\n    \"esdoc-standard-plugin\": \"^1.0.0\"\r\n  },\r\n  \"scripts\": {\r\n    \"dev\": \"nodemon --exec yarn start\",\r\n    \"start\": \"./node_modules/.bin/esdoc\"\r\n  }\r\n}\r\n",
-    "longname": "C:\\Users\\Mahrous\\Desktop\\امن - Copy\\esdoc\\package.json",
+    "longname": "C:\\Users\\Mahrous\\Desktop\\task\\امن\\__UN__CY_SE\\esdoc\\package.json",
     "name": "package.json",
     "static": true,
     "access": "public"

@@ -1,3 +1,4 @@
+
 import { generateKeyPairSync } from "crypto";
 import { PASSPHRASE } from "../config";
 export const generateKeys = () =>
@@ -14,3 +15,4 @@ export const generateKeys = () =>
       passphrase: PASSPHRASE
     }
   });
+

@@ -53,7 +53,9 @@ class SymmetricCryptography {
   /**
    * key و iv تابع لتشفير الداتا حسب
    * <br>
-   * stringify نقوم بتحويله الى نص عن طريق عملية  json object وتوابع التشفير المدعومة بالمكتبة لا تسطيع تشفير سوا النصوص لذلك عند ادخل josn object  نظامنا يعتمد على تبادل البيانات بشكل
+   * json object وتوابع التشفير المدعومة بالمكتبة لا تسطيع تشفير سوا النصوص لذلك عند ادخل josn object  نظامنا يعتمد على تبادل البيانات بشكل
+   *<br />
+   *  stringify نقوم بتحويله الى نص عن طريق عملية
    * @param {String} data -النص المراد تشفيره
    * @return {Object} {iv:Buffer,encryptedData:String }; -المعتمد بالتشفير iv  الداتا المشفرة و
    */
@@ -72,7 +74,7 @@ class SymmetricCryptography {
    * key و iv تابع لفك تشفير الداتا حسب
    * <br>
    * @param {Object} data - الابجيكت المراد فك تشفيره
-   * @param {Boolean} returnJson -والا يرده كنص Json يرد الخرج   True متغير افتراضي في حال  
+   * @param {Boolean} returnJson -والا يرده كنص Json يرد الخرج   True متغير افتراضي في حال
    * @return {Object} ; نتيجة فك التشفير
    */
   decrypt(data, returnJson = true) {
