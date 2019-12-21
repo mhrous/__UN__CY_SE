@@ -9,4 +9,10 @@ socket.on("connect", function() {
     AsymmetricCryptography.setReceiverPublicKey(data);
     HybridCryptography.setReceiverPublicKey(data);
   });
+  socket.on(SESSION_ERROR, () => {
+    swal("error", "this session key is uesed befor", "error");
+  });
+  socket.on(SIGNATURE_ERROR, () => {
+    swal("error", "this signatuer is error some one distroyd data", "error");
+  });
 });

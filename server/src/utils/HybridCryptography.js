@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import SymmetricCryptography from "./SymmetricCryptography";
 import AsymmetricCryptography from "./AsymmetricCryptography";
+import { PASSPHRASE } from "../config";
 class HybridCryptography {
   constructor() {
     this.symmetric = new SymmetricCryptography();
@@ -26,26 +27,47 @@ class HybridCryptography {
   setIv(iv) {
     this.symmetric.setIv(iv);
   }
+
   encrypt(data) {
     if (typeof data == "object") data = JSON.stringify(data);
     const _kye = crypto.randomBytes(32);
     const _iv = crypto.randomBytes(16);
+
+    // const { key:_kye, iv:_iv } = JSON.parse(KEY);
     this.setKye(_kye);
     this.setIv(_iv);
     const dataEncrypt = this.symmetric.encrypt(data);
     const keyEncrypt = this.asymmetric.encrypt({ _kye, _iv });
-
-    return { dataEncrypt, keyEncrypt };
+    const sign = crypto.createSign("SHA256");
+    sign.write(data);
+    sign.end();
+    const signature = sign.sign(
+      { key: this.asymmetric.privateKey, passphrase: PASSPHRASE },
+      "hex"
+    );
+    return { dataEncrypt, keyEncrypt, signature };
   }
   decrypt(data, returnJson = true) {
-    const { dataEncrypt, keyEncrypt } = data;
-
+    const { dataEncrypt, keyEncrypt, signature } = data;
+    console.log(signature, "00");
     const { _kye, _iv } = this.asymmetric.decrypt(keyEncrypt);
     this.setKye(_kye);
     this.setIv(_iv);
-    return returnJson
-      ? this.symmetric.decrypt(dataEncrypt)
-      : this.symmetric.decrypt(dataEncrypt, false);
+
+    const dataDecrupt = this.symmetric.decrypt(dataEncrypt, false);
+    console.log(dataDecrupt);
+    const verify = crypto.createVerify("SHA256");
+    verify.write(dataDecrupt);
+    verify.end();
+    const resSignature = verify.verify(
+      { key: this.asymmetric.receiverPublicKey, passphrase: PASSPHRASE },
+      signature,
+      "hex"
+    );
+    if (!resSignature) {
+      return null;
+    }
+    return returnJson ? JSON.parse(dataDecrupt) : dataDecrupt;
   }
 }
 

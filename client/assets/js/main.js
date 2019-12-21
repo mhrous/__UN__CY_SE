@@ -2,11 +2,11 @@ const obj = new Vue({
   el: "#app",
   data: {
     active: "add-transaction",
-    from: "",
-    password: "",
-    to: "",
-    amount: null,
-    reason: ""
+    from: "jod_123",
+    password: "11111111",
+    to: "ali_123",
+    amount: 1,
+    reason: "1"
   },
   methods: {
     addTransaction() {
@@ -48,11 +48,11 @@ const obj = new Vue({
 
         swal("success", data, "success");
       });
-      this.from = "";
-      this.password = "";
-      this.to = "";
-      this.amount = null;
-      this.reason = "";
+      this.from = "jod_123";
+      this.password = "11111111";
+      this.to = "ali_123";
+      this.amount = 1;
+      this.reason = "1";
     }
   }
 });

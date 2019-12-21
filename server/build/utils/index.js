@@ -57,6 +57,18 @@ Object.defineProperty(exports, "SEND_TRANSACTION", {
     return _soketEvent.SEND_TRANSACTION;
   }
 });
+Object.defineProperty(exports, "SESSION_ERROR", {
+  enumerable: true,
+  get: function () {
+    return _soketEvent.SESSION_ERROR;
+  }
+});
+Object.defineProperty(exports, "SIGNATURE_ERROR", {
+  enumerable: true,
+  get: function () {
+    return _soketEvent.SIGNATURE_ERROR;
+  }
+});
 
 var _db = require("./db");
 

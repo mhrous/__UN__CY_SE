@@ -11,6 +11,8 @@ var _SymmetricCryptography = _interopRequireDefault(require("./SymmetricCryptogr
 
 var _AsymmetricCryptography = _interopRequireDefault(require("./AsymmetricCryptography"));
 
+var _config = require("../config");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 class HybridCryptography {
@@ -48,7 +50,8 @@ class HybridCryptography {
 
     const _kye = _crypto.default.randomBytes(32);
 
-    const _iv = _crypto.default.randomBytes(16);
+    const _iv = _crypto.default.randomBytes(16); // const { key:_kye, iv:_iv } = JSON.parse(KEY);
+
 
     this.setKye(_kye);
     this.setIv(_iv);
@@ -57,24 +60,52 @@ class HybridCryptography {
       _kye,
       _iv
     });
+
+    const sign = _crypto.default.createSign("SHA256");
+
+    sign.write(data);
+    sign.end();
+    const signature = sign.sign({
+      key: this.asymmetric.privateKey,
+      passphrase: _config.PASSPHRASE
+    }, "hex");
     return {
       dataEncrypt,
-      keyEncrypt
+      keyEncrypt,
+      signature
     };
   }
 
   decrypt(data, returnJson = true) {
     const {
       dataEncrypt,
-      keyEncrypt
+      keyEncrypt,
+      signature
     } = data;
+    console.log(signature, "00");
     const {
       _kye,
       _iv
     } = this.asymmetric.decrypt(keyEncrypt);
     this.setKye(_kye);
     this.setIv(_iv);
-    return returnJson ? this.symmetric.decrypt(dataEncrypt) : this.symmetric.decrypt(dataEncrypt, false);
+    const dataDecrupt = this.symmetric.decrypt(dataEncrypt, false);
+    console.log(dataDecrupt);
+
+    const verify = _crypto.default.createVerify("SHA256");
+
+    verify.write(dataDecrupt);
+    verify.end();
+    const resSignature = verify.verify({
+      key: this.asymmetric.receiverPublicKey,
+      passphrase: _config.PASSPHRASE
+    }, signature, "hex");
+
+    if (!resSignature) {
+      return null;
+    }
+
+    return returnJson ? JSON.parse(dataDecrupt) : dataDecrupt;
   }
 
 }

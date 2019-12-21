@@ -43,6 +43,7 @@ class Socket {
     } = (0, _utils.generateKeys)();
     this.publicKey = publicKey;
     this.privateKey = privateKey;
+    this.sessions = {};
     this.init();
   }
 
@@ -117,6 +118,7 @@ class Socket {
       console.log("\n");
       console.log(_chalk.default.bgCyan.bold(" New Connection "), "Socket id:", _chalk.default.blue.bold(socket.id));
       console.log("\n");
+      this.sessions[socket.id] = {};
       printLine();
       const symmetric = new _utils.SymmetricCryptography();
       const asymmetric = new _utils.AsymmetricCryptography();
@@ -158,56 +160,88 @@ class Socket {
           symmetric.setIv(iv);
           data = symmetric.decrypt(data);
         } else if (_config.REQUEST == 2) {
-          console.log(_chalk.default.blue.bold("info"), "Cryptography Type :", _chalk.default.blue.bold("Hybrid"));
-          console.log("1 _ get Symmetric Key and iv from keyEncrypt");
-          console.log("2 _ decrypt dataEncrypt by  Key and iv");
-          console.log("\n");
-          console.log(_chalk.default.blue.bold("info"), "Encrypt Data");
-          console.log(data);
-          console.log("\n");
+          // console.log(
+          //   chalk.blue.bold("info"),
+          //   "Cryptography Type :",
+          //   chalk.blue.bold("Hybrid")
+          // );
+          // console.log("1 _ get Symmetric Key and iv from keyEncrypt");
+          // console.log("2 _ decrypt dataEncrypt by  Key and iv");
+          // console.log("\n");
+          // console.log(chalk.blue.bold("info"), "Encrypt Data");
+          // console.log(data);
+          // console.log("\n");
+          // if (this.sessions[socket.id][keyEncrypt]) {
+          //   socket.emit(SESSION_ERROR, "");
+          //   return;
+          // } else {
+          //   this.sessions[socket.id][keyEncrypt] = true;
+          // }
           data = hybrid.decrypt(data);
-          symmetric.setKye(hybrid.symmetric.key);
-          symmetric.setIv(hybrid.symmetric.iv);
-          console.log(_chalk.default.blue.bold("info"), "kye:", _chalk.default.blue.bold(Buffer.from(hybrid.symmetric.key).toString("hex")));
-          console.log(_chalk.default.blue.bold("info"), "iv:", _chalk.default.blue.bold(Buffer.from(hybrid.symmetric.iv).toString("hex")));
-        }
 
-        console.log(_chalk.default.blue.bold("info"), "Decrypt Data");
-        console.table(data);
-        console.log("\n");
+          if (!data) {
+            socket.emit(_utils.SIGNATURE_ERROR, "");
+            return;
+          }
+
+          console.log("iouyrtfdguyjhiujhgi");
+          const sessionId = Buffer.from(hybrid.symmetric.key).toString("hex");
+
+          if (this.sessions[socket.id][sessionId]) {
+            socket.emit(_utils.SESSION_ERROR, "");
+            return;
+          } else {
+            this.sessions[socket.id][sessionId] = true;
+          }
+
+          symmetric.setKye(hybrid.symmetric.key);
+          symmetric.setIv(hybrid.symmetric.iv); // console.log(
+          //   chalk.blue.bold("info"),
+          //   "kye:",
+          //   chalk.blue.bold(Buffer.from(hybrid.symmetric.key).toString("hex"))
+          // );
+          // console.log(
+          //   chalk.blue.bold("info"),
+          //   "iv:",
+          //   chalk.blue.bold(Buffer.from(hybrid.symmetric.iv).toString("hex"))
+          // );
+        } // console.log(chalk.blue.bold("info"), "Decrypt Data");
+        // console.table(data);
+        // console.log("\n");
+
+
         let {
           validate,
           _from,
           _to,
           rest
-        } = await this.validate(data);
-        console.log(_chalk.default.blue.bold("info"), "response");
+        } = await this.validate(data); // console.log(chalk.blue.bold("info"), "response");
 
         if (validate == _utils.NO_ERROR) {
           try {
-            console.log(_chalk.default.green.bold("scusses"), rest);
+            // console.log(chalk.green.bold("scusses"), rest);
             await _model.Transaction.create(_objectSpread({}, data, {
               to: _to,
               from: _from
             }));
             rest = symmetric.encrypt(rest);
             socket.emit(_utils.NO_ERROR, rest);
-          } catch (e) {
-            console.error(e);
+          } catch (e) {// console.error(e);
           }
         } else {
-          console.log(_chalk.default.red.bold("error"), validate);
+          // console.log(chalk.red.bold("error"), validate);
           validate = symmetric.encrypt(validate);
           socket.emit(_utils.ERROR, validate);
         }
 
         printLine();
       });
-      socket.on("disconnect", reason => {
+      socket.on("disconnect", () => {
         console.log("\n");
         console.log(_chalk.default.bgCyan.bold("disconnect "), " Socket close:", _chalk.default.red.bold(socket.id));
         console.log("\n");
         printLine();
+        delete this.sessions[socket.id];
       });
     });
   }
