@@ -133,6 +133,8 @@ class Socket {
       });
 
       socket.on(SEND_TRANSACTION, async data => {
+        const { signature } = data;
+
         console.log("\n");
         console.log(
           chalk.bgCyan.bold(" Send Transaction for "),
@@ -185,13 +187,11 @@ class Socket {
           // } else {
           //   this.sessions[socket.id][keyEncrypt] = true;
           // }
-
           data = hybrid.decrypt(data);
           if (!data) {
             socket.emit(SIGNATURE_ERROR, "");
             return;
           }
-          console.log("iouyrtfdguyjhiujhgi");
           const sessionId = Buffer.from(hybrid.symmetric.key).toString("hex");
           if (this.sessions[socket.id][sessionId]) {
             socket.emit(SESSION_ERROR, "");
@@ -200,6 +200,7 @@ class Socket {
           } else {
             this.sessions[socket.id][sessionId] = true;
           }
+
           symmetric.setKye(hybrid.symmetric.key);
           symmetric.setIv(hybrid.symmetric.iv);
           // console.log(
@@ -217,18 +218,23 @@ class Socket {
         // console.table(data);
         // console.log("\n");
         let { validate, _from, _to, rest } = await this.validate(data);
-
+        console.log(signature);
         // console.log(chalk.blue.bold("info"), "response");
 
         if (validate == NO_ERROR) {
           try {
             // console.log(chalk.green.bold("scusses"), rest);
 
-            await Transaction.create({ ...data, to: _to, from: _from });
+            await Transaction.create({
+              ...data,
+              to: _to,
+              from: _from,
+              signature: signature
+            });
             rest = symmetric.encrypt(rest);
             socket.emit(NO_ERROR, rest);
           } catch (e) {
-            // console.error(e);
+            console.error(e);
           }
         } else {
           // console.log(chalk.red.bold("error"), validate);

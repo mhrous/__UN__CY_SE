@@ -21,7 +21,8 @@ const transactionSchema = new mongoose.Schema(
     clientTransactionId: {
       type: Date,
       default: new Date()
-    }
+    },
+    signature: { type: String }
   },
   {
     timestamps: true

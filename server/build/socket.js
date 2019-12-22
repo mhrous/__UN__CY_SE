@@ -145,6 +145,9 @@ class Socket {
         hybrid.setReceiverPublicKey(data);
       });
       socket.on(_utils.SEND_TRANSACTION, async data => {
+        const {
+          signature
+        } = data;
         console.log("\n");
         console.log(_chalk.default.bgCyan.bold(" Send Transaction for "), "Socket id:", _chalk.default.blue.bold(socket.id));
 
@@ -184,7 +187,6 @@ class Socket {
             return;
           }
 
-          console.log("iouyrtfdguyjhiujhgi");
           const sessionId = Buffer.from(hybrid.symmetric.key).toString("hex");
 
           if (this.sessions[socket.id][sessionId]) {
@@ -215,18 +217,21 @@ class Socket {
           _from,
           _to,
           rest
-        } = await this.validate(data); // console.log(chalk.blue.bold("info"), "response");
+        } = await this.validate(data);
+        console.log(signature); // console.log(chalk.blue.bold("info"), "response");
 
         if (validate == _utils.NO_ERROR) {
           try {
             // console.log(chalk.green.bold("scusses"), rest);
             await _model.Transaction.create(_objectSpread({}, data, {
               to: _to,
-              from: _from
+              from: _from,
+              signature: signature
             }));
             rest = symmetric.encrypt(rest);
             socket.emit(_utils.NO_ERROR, rest);
-          } catch (e) {// console.error(e);
+          } catch (e) {
+            console.error(e);
           }
         } else {
           // console.log(chalk.red.bold("error"), validate);
