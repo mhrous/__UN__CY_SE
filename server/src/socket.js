@@ -84,8 +84,8 @@ class Socket {
 
   init() {
     io.use(async (socket, next) => {
-      // console.log(socket.handshake.query);
-      // for authentication
+
+      
       next();
     }).on("connection", socket => {
       console.log("\n");
