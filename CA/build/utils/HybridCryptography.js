@@ -83,7 +83,6 @@ class HybridCryptography {
       keyEncrypt,
       signature
     } = data;
-    console.log(signature, "00");
     const {
       _kye,
       _iv
@@ -91,8 +90,6 @@ class HybridCryptography {
     this.setKye(_kye);
     this.setIv(_iv);
     const dataDecrupt = this.symmetric.decrypt(dataEncrypt, false);
-    const ReceiverPublicKey = JSON.parse(dataDecrupt).publicKey;
-    this.setReceiverPublicKey(ReceiverPublicKey);
 
     const verify = _crypto.default.createVerify("SHA256");
 

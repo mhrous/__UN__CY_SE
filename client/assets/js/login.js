@@ -19,24 +19,25 @@ new Vue({
 
       console.log({ userName, password });
       const publicKey = localStorage.getItem("_PUBLIC_KEY_");
-      const data = { userName, password, publicKey };
+      const data = { userName, password };
       HybridCryptography.setReceiverPublicKey(publicKeyCA);
       const dataEn = HybridCryptography.encrypt(data);
+      const _data = { dataEn, publicKey };
       $.ajax({
         type: "POST",
         url: `http://localhost:8888/its/singin`,
         success(data) {
-          console.log(data);
+          localStorage.setItem("__certifcate__", JSON.stringify(data));
+          window.location.href = "index.html";
         },
         error(e) {
-          swal("erroe", e, "erroe");
+          swal("error", e.responseText, "error");
         },
 
-        data: dataEn
+        data: _data
       });
 
-      // this.userName = "";
-      // this.password = "";
+
     }
   }
 });

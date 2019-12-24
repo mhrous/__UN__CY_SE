@@ -13,19 +13,47 @@ var _publicKey = _interopRequireDefault(require("../publicKey"));
 
 var _privateKey = _interopRequireDefault(require("../privateKey"));
 
+var _user = _interopRequireDefault(require("../model/user"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const singIn = (req, res, next) => {
+const hybrid = new _HybridCryptography.default();
+const certifcate = new _certifcate.default();
+hybrid.setPublicKey(_publicKey.default);
+hybrid.setPrivateKey(_privateKey.default);
+
+const singIn = async (req, res, next) => {
   try {
-    const dataEn = req.body;
-    const hybrid = new _HybridCryptography.default();
-    hybrid.setPublicKey(_publicKey.default);
-    hybrid.setPrivateKey(_privateKey.default);
+    const {
+      dataEn,
+      publicKey: userPublicKey
+    } = req.body;
+    hybrid.setReceiverPublicKey(userPublicKey);
     const data = hybrid.decrypt(dataEn);
-    console.log(data);
-    res.json({
-      hi: 76543
+
+    if (!data) {
+      return res.status(400).send("someone distroed data pleas try again");
+    }
+
+    const {
+      userName,
+      password
+    } = data;
+    const user = await _user.default.findOne({
+      userName
+    }).exec();
+
+    if (!user) {
+      return res.status(400).send("We did not get to know you, please visit us soon and introduce yourself");
+    }
+
+    const truePassword = user.checkPassword(password);
+    if (!truePassword) return res.status(400).send("password worng");
+    const result = certifcate.bulid(userPublicKey, {
+      type: "user",
+      userName
     });
+    res.json(result);
   } catch (e) {
     console.log(e);
   }

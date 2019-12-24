@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import hash from "object-hash";
 
+
 const userSchema = new mongoose.Schema(
   {
     userName:{
