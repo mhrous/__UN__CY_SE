@@ -9,34 +9,16 @@ Object.defineProperty(exports, "connect", {
     return _db.connect;
   }
 });
-Object.defineProperty(exports, "protect", {
+Object.defineProperty(exports, "singIn", {
   enumerable: true,
   get: function () {
-    return _auth.protect;
+    return _auth.singIn;
   }
 });
-Object.defineProperty(exports, "signin", {
+Object.defineProperty(exports, "HybridCryptography", {
   enumerable: true,
   get: function () {
-    return _auth.signin;
-  }
-});
-Object.defineProperty(exports, "getFirstOfNextMonth", {
-  enumerable: true,
-  get: function () {
-    return _help.getFirstOfNextMonth;
-  }
-});
-Object.defineProperty(exports, "getFirstOfThisMonth", {
-  enumerable: true,
-  get: function () {
-    return _help.getFirstOfThisMonth;
-  }
-});
-Object.defineProperty(exports, "randomPassword", {
-  enumerable: true,
-  get: function () {
-    return _help.randomPassword;
+    return _HybridCryptography.default;
   }
 });
 
@@ -44,4 +26,6 @@ var _db = require("./db");
 
 var _auth = require("./auth");
 
-var _help = require("./help");
+var _HybridCryptography = _interopRequireDefault(require("./HybridCryptography"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }

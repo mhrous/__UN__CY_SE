@@ -13,11 +13,13 @@ var _morgan = _interopRequireDefault(require("morgan"));
 
 var _cors = _interopRequireDefault(require("cors"));
 
-var _config = _interopRequireDefault(require("./config"));
+var _config = require("./config");
 
 var _utils = require("./utils");
 
-var _resources = require("./resources");
+var _publicKey = _interopRequireDefault(require("./publicKey"));
+
+var _privateKey = _interopRequireDefault(require("./privateKey"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30,21 +32,13 @@ app.use((0, _bodyParser.urlencoded)({
 }));
 app.use((0, _cors.default)());
 app.use((0, _morgan.default)("dev"));
-app.post("/signin", _utils.signin);
-app.use(_utils.protect);
-app.use("/api/user", _resources.userRouter);
-app.use("/api/car", _resources.carRouter);
-app.use("/api/payment", _resources.paymentRouter);
-app.use("/api/expenses", _resources.expensesRouter);
-app.use("/api/travel", _resources.travelRouter);
-app.use("/api/reports", _resources.reportsRouter);
-app.use("/api/page", _resources.pageRouter);
+app.post("/its/singin", _utils.singIn);
 
 const start = async () => {
   try {
     await (0, _utils.connect)();
-    app.listen(_config.default.port, () => {
-      console.log(`REST API on http://localhost:${_config.default.port}/vip_2`);
+    app.listen(_config.port, () => {
+      console.log(`REST API on http://localhost:${_config.port}/its`);
     });
   } catch (e) {}
 };

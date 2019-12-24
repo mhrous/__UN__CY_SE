@@ -1,7 +1,7 @@
-const crypto = require("crypto");
-
-const SymmetricCryptography = require("./SymmetricCryptography");
-const AsymmetricCryptography = require("./AsymmetricCryptography");
+import crypto from "crypto";
+import SymmetricCryptography from "./SymmetricCryptography";
+import AsymmetricCryptography from "./AsymmetricCryptography";
+import { PASSPHRASE } from "../config";
 class HybridCryptography {
   constructor() {
     this.symmetric = new SymmetricCryptography();
@@ -27,6 +27,7 @@ class HybridCryptography {
   setIv(iv) {
     this.symmetric.setIv(iv);
   }
+
   encrypt(data) {
     if (typeof data == "object") data = JSON.stringify(data);
     const _kye = crypto.randomBytes(32);
@@ -39,7 +40,6 @@ class HybridCryptography {
     const keyEncrypt = this.asymmetric.encrypt({ _kye, _iv });
     const sign = crypto.createSign("SHA256");
     sign.write(data);
-    console.log(data)
     sign.end();
     const signature = sign.sign(
       { key: this.asymmetric.privateKey, passphrase: PASSPHRASE },
@@ -48,13 +48,18 @@ class HybridCryptography {
     return { dataEncrypt, keyEncrypt, signature };
   }
   decrypt(data, returnJson = true) {
-    const { dataEncrypt, keyEncrypt, signature } = data;
+    console.log(PASSPHRASE);
 
+    const { dataEncrypt, keyEncrypt, signature } = data;
+    console.log(signature, "00");
     const { _kye, _iv } = this.asymmetric.decrypt(keyEncrypt);
     this.setKye(_kye);
     this.setIv(_iv);
 
     const dataDecrupt = this.symmetric.decrypt(dataEncrypt, false);
+
+    const ReceiverPublicKey = JSON.parse(dataDecrupt).publicKey;
+    this.setReceiverPublicKey(ReceiverPublicKey);
     const verify = crypto.createVerify("SHA256");
     verify.write(dataDecrupt);
     verify.end();
@@ -64,11 +69,10 @@ class HybridCryptography {
       "hex"
     );
     if (!resSignature) {
-      swal("error", "signature error", "error");
-      return 
+      return null;
     }
     return returnJson ? JSON.parse(dataDecrupt) : dataDecrupt;
   }
 }
 
-module.exports = HybridCryptography;
+export default HybridCryptography;

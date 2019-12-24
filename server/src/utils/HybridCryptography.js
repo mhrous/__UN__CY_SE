@@ -55,7 +55,6 @@ class HybridCryptography {
     this.setIv(_iv);
 
     const dataDecrupt = this.symmetric.decrypt(dataEncrypt, false);
-    console.log(dataDecrupt);
     const verify = crypto.createVerify("SHA256");
     verify.write(dataDecrupt);
     verify.end();

@@ -90,7 +90,6 @@ class HybridCryptography {
     this.setKye(_kye);
     this.setIv(_iv);
     const dataDecrupt = this.symmetric.decrypt(dataEncrypt, false);
-    console.log(dataDecrupt);
 
     const verify = _crypto.default.createVerify("SHA256");
 

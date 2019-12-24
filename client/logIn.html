@@ -1,29 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>lOG IN</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Log in</title>
     <link
       rel="stylesheet"
       href="./assets/lib/bootstrap-sweetalert/css/bootstrap-sweetalert.min.css"
     />
-    <link rel="stylesheet" href="./assets/lib/argon.css" />
-
-    <style></style>
+    <link type="text/css" href="./assets/lib/argon.css" rel="stylesheet" />
   </head>
-  <body>
-    <main
-      id="app"
-      class="bg-default min-vh-100 d-flex align-items-center justify-content-center
-    "
-    >
-      <div></div>
-    </main>
-    <script src="./assets/lib/bootstrap-sweetalert/js/bootstrap-sweetalert.min.js"></script>
 
+  <body>
+    <main id="app">
+      <div
+        class="d-flex justify-content-center align-items-center min-vh-100 bg-default"
+      >
+        <div class="card bg-secondary shadow border-0" style="width: 300px;">
+          <div class="card-body px-3 py-lg-5">
+            <div class="form-group mb-3">
+              <div class="input-group input-group-alternative">
+                <input
+                  class="form-control"
+                  placeholder="User name"
+                  v-model="userName"
+                  type="text"
+                  @keyup.enter="signIn"
+                />
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="input-group input-group-alternative">
+                <input
+                  class="form-control"
+                  placeholder="Password"
+                  v-model="password"
+                  type="password"
+                  @keyup.enter="signIn"
+                />
+              </div>
+            </div>
+
+            <div class="text-center">
+              <button type="button" class="btn btn-primary " @click="signIn">
+                Sign in
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="./assets/lib/bootstrap-sweetalert/js/bootstrap-sweetalert.min.js"></script>
     <script src="./assets/lib/vue/vue.min.js"></script>
+    <script src="./assets/lib/jquery.js"></script>
     <script src="./assets/js/login.js"></script>
   </body>
 </html>

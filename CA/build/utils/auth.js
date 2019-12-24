@@ -3,98 +3,40 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.protect = exports.signin = exports.verifyToken = exports.newToken = void 0;
+exports.createServeCertifcate = exports.singUp = exports.singIn = void 0;
 
-var _config = _interopRequireDefault(require("../config"));
+var _certifcate = _interopRequireDefault(require("./certifcate"));
 
-var _resources = require("../resources");
+var _HybridCryptography = _interopRequireDefault(require("./HybridCryptography"));
 
-var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
+var _publicKey = _interopRequireDefault(require("../publicKey"));
+
+var _privateKey = _interopRequireDefault(require("../privateKey"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const newToken = user => {
-  return _jsonwebtoken.default.sign({
-    id: user.id
-  }, _config.default.secrets.jwt, {
-    expiresIn: _config.default.jwtExp
-  });
-};
-
-exports.newToken = newToken;
-
-const verifyToken = token => new Promise((resolve, reject) => {
-  _jsonwebtoken.default.verify(token, _config.default.secrets.jwt, (err, payload) => {
-    if (err) return reject(err);
-    resolve(payload);
-  });
-});
-
-exports.verifyToken = verifyToken;
-
-const signin = async (req, res) => {
-  if (!req.body.name || !req.body.password) {
-    return res.status(400).send({
-      message: "يجب ادخال اسم الامستخدم وكلمة المرور"
-    });
-  }
-
+const singIn = (req, res, next) => {
   try {
-    const user = await _resources.User.findOne({
-      name: req.body.name
-    }).select("name password power").exec();
-
-    if (!user) {
-      return res.status(401).send({
-        message: "اسم المستخدم خاطى"
-      });
-    }
-
-    if (req.body.password != user.password) {
-      return res.status(401).send({
-        message: "كلمة المرور خاطئة"
-      });
-    }
-
-    const token = newToken(user);
-    const power = user.power;
-    return res.status(201).send({
-      data: {
-        token,
-        power
-      }
+    const dataEn = req.body;
+    const hybrid = new _HybridCryptography.default();
+    hybrid.setPublicKey(_publicKey.default);
+    hybrid.setPrivateKey(_privateKey.default);
+    const data = hybrid.decrypt(dataEn);
+    console.log(data);
+    res.json({
+      hi: 76543
     });
   } catch (e) {
-    return res.status(500).end();
+    console.log(e);
   }
 };
 
-exports.signin = signin;
+exports.singIn = singIn;
 
-const protect = async (req, res, next) => {
-  const bearer = req.headers.authorization;
+const singUp = () => {};
 
-  if (!bearer || !bearer.startsWith("Bearer ")) {
-    return res.status(401).end();
-  }
+exports.singUp = singUp;
 
-  const token = bearer.split("Bearer ")[1].trim();
-  let payload;
+const createServeCertifcate = () => {};
 
-  try {
-    payload = await verifyToken(token);
-  } catch (e) {
-    return res.status(401).end();
-  }
-
-  const user = await _resources.User.findById(payload.id).lean().exec();
-
-  if (!user) {
-    return res.status(401).end();
-  }
-
-  req.user = user;
-  next();
-};
-
-exports.protect = protect;
+exports.createServeCertifcate = createServeCertifcate;

@@ -7,7 +7,7 @@ exports.connect = void 0;
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
 
-var _config = _interopRequireDefault(require("../config"));
+var _config = require("../config");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17,7 +17,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-const connect = (url = _config.default.dbUrl, opts = {}) => {
+const connect = (url = _config.dbUrl, opts = {}) => {
   return _mongoose.default.connect(url, _objectSpread({}, opts, {
     useCreateIndex: true,
     useNewUrlParser: true,
