@@ -17,7 +17,6 @@ new Vue({
         return;
       }
 
-      console.log({ userName, password });
       const publicKey = localStorage.getItem("_PUBLIC_KEY_");
       const data = { userName, password };
       HybridCryptography.setReceiverPublicKey(publicKeyCA);
@@ -36,8 +35,6 @@ new Vue({
 
         data: _data
       });
-
-
     }
   }
 });

@@ -13,6 +13,8 @@ import {
   SIGNATURE_ERROR
 } from "./soketEvent";
 
+import verifyCertifacte from "./verifyCertifacte";
+
 export {
   connect,
   AsymmetricCryptography,
@@ -24,5 +26,6 @@ export {
   THIS_IS_MY_PUBLIC_KEY,
   SEND_TRANSACTION,
   SESSION_ERROR,
-  SIGNATURE_ERROR
+  SIGNATURE_ERROR,
+  verifyCertifacte
 };

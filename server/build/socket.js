@@ -13,11 +13,17 @@ var _socket = _interopRequireDefault(require("socket.io"));
 
 var _chalk = _interopRequireDefault(require("chalk"));
 
+var _serverCertifcate = _interopRequireDefault(require("./serverCertifcate"));
+
 var _model = require("./model");
 
 var _config = require("./config");
 
 var _utils = require("./utils");
+
+var _privateKey = _interopRequireDefault(require("./privateKey"));
+
+var _publicKey = _interopRequireDefault(require("./publicKey"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -37,12 +43,8 @@ const io = (0, _socket.default)(server);
 
 class Socket {
   constructor() {
-    const {
-      publicKey,
-      privateKey
-    } = (0, _utils.generateKeys)();
-    this.publicKey = publicKey;
-    this.privateKey = privateKey;
+    this.publicKey = _publicKey.default;
+    this.privateKey = _privateKey.default;
     this.sessions = {};
     this.init();
   }
@@ -111,6 +113,18 @@ class Socket {
 
   init() {
     io.use(async (socket, next) => {
+      let {
+        certifcate
+      } = socket.handshake.query;
+      certifcate = JSON.parse(certifcate);
+      const res = (0, _utils.verifyCertifacte)(certifcate);
+      console.log(res);
+
+      if (res.error) {
+        return;
+      }
+
+      socket.certifcate = certifcate;
       next();
     }).on("connection", socket => {
       console.log("\n");
@@ -131,17 +145,11 @@ class Socket {
       } = JSON.parse(_config.KEY);
       symmetric.setKye(key);
       symmetric.setIv(iv);
-      socket.emit(_utils.THIS_IS_MY_PUBLIC_KEY, this.publicKey);
-      socket.on(_utils.THIS_IS_MY_PUBLIC_KEY, data => {
-        console.log("\n");
-        console.log(_chalk.default.bgCyan.bold(" Get Public key for "), "Socket id:", _chalk.default.blue.bold(socket.id));
-        console.log("\n");
-        console.log(_chalk.default.bgGray.blue(data.toString()));
-        console.log("\n");
-        printLine();
-        asymmetric.setReceiverPublicKey(data);
-        hybrid.setReceiverPublicKey(data);
-      });
+      console.log(socket.certifcate.publicId);
+      asymmetric.setReceiverPublicKey(socket.certifcate.publicId);
+      hybrid.setReceiverPublicKey(socket.certifcate.publicId); // socket.emit(THIS_IS_MY_PUBLIC_KEY, this.publicKey);
+
+      socket.emit("serverCertifcate", _serverCertifcate.default);
       socket.on(_utils.SEND_TRANSACTION, async data => {
         const {
           signature
@@ -245,6 +253,20 @@ class Socket {
         console.log("\n");
         printLine();
         delete this.sessions[socket.id];
+      });
+      socket.on(_utils.THIS_IS_MY_PUBLIC_KEY, data => {
+        // console.log("\n");
+        // console.log(
+        //   chalk.bgCyan.bold(" Get Public key for "),
+        //   "Socket id:",
+        //   chalk.blue.bold(socket.id)
+        // );
+        // console.log("\n");
+        // console.log(chalk.bgGray.blue(data.toString()));
+        // console.log("\n");
+        // printLine();
+        asymmetric.setReceiverPublicKey(data);
+        hybrid.setReceiverPublicKey(data);
       });
     });
   }

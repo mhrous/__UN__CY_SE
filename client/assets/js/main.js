@@ -1,3 +1,4 @@
+let clientTransactionId;
 const obj = new Vue({
   el: "#app",
   data: {
@@ -23,7 +24,7 @@ const obj = new Vue({
         swal("error", "password so week", "error");
         return;
       }
-      const clientTransactionId = new Date().getTime();
+      if (!clientTransactionId) clientTransactionId = new Date().getTime();
       let data = { from, password, to, amount, reason, clientTransactionId };
       if (REQUEST == 1) {
         const { key, iv } = JSON.parse(KEY);
@@ -31,7 +32,6 @@ const obj = new Vue({
         SymmetricCryptography.setIv(iv);
         data = SymmetricCryptography.encrypt(data);
       } else {
- 
         data = HybridCryptography.encrypt(data);
         SymmetricCryptography.setKye(HybridCryptography.symmetric.key);
         SymmetricCryptography.setIv(HybridCryptography.symmetric.iv);
@@ -42,11 +42,14 @@ const obj = new Vue({
       socket.on(ERROR, data => {
         data = SymmetricCryptography.decrypt(data, false);
         swal("error", data, "error");
+        clientTransactionId = null
       });
       socket.on(NO_ERROR, data => {
         data = SymmetricCryptography.decrypt(data, false);
 
         swal("success", data, "success");
+        clientTransactionId = null
+
       });
       this.from = "jod_123";
       this.password = "11111111";

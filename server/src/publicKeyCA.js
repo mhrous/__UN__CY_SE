@@ -1,4 +1,4 @@
-module.exports = `-----BEGIN RSA PUBLIC KEY-----
+export default `-----BEGIN RSA PUBLIC KEY-----
 MIICCgKCAgEA2li5kGjAS7l6+CsmoUVzbfnwJ7JTbP8uOB3C+tBHMG9+c5L5i/Xx
 X8UeOjFshARUdX9jObgnCCIitZtbGvCoiHgqCovK9lAI1fNNYOUt3FtGAVbs4fiF
 hw3YQtbxucMY68QPQve3oDFJja0sSwOJvFxDitY3vRuMKvuZnkJdmOhPB61CU0x7
@@ -10,4 +10,4 @@ Yhrma+Ztp9kC83dMFcb3FTFRqs8JhwwKJaODNCE2i7xjvnhTzQ/G5NimPJqmHRdv
 aAcO3jQSYhi1v6USqMJ1GVz6Kk8kANkUgCtUwWcubvHM8u07UDqzx0NWH9tAc/6X
 WVDlZSVkGehNs1+q18Z1VXPW/3RtD+cQW6R+LsTRLY7MRPIcbApayLzpE/MSN8e5
 ivsoq/urL6lPUNlWhkhD3naJlwGyJd5m1aGq2gmrzIkjfT9XjqC4uSMCAwEAAQ==
------END RSA PUBLIC KEY-----`
+-----END RSA PUBLIC KEY-----`;

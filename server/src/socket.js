@@ -2,6 +2,7 @@ import express from "express";
 import http from "http";
 import socket from "socket.io";
 import chalk from "chalk";
+import serverCertifcate from "./serverCertifcate";
 
 import { User, Transaction } from "./model";
 import { PORT, REQUEST, KEY } from "./config";
@@ -15,8 +16,12 @@ import {
   HybridCryptography,
   generateKeys,
   SESSION_ERROR,
-  SIGNATURE_ERROR
+  SIGNATURE_ERROR,
+  verifyCertifacte
 } from "./utils";
+
+import privateKey from "./privateKey";
+import publicKey from "./publicKey";
 
 const printLine = () => console.log("-".repeat(75));
 
@@ -25,7 +30,6 @@ const server = http.Server(app);
 const io = socket(server);
 class Socket {
   constructor() {
-    const { publicKey, privateKey } = generateKeys();
     this.publicKey = publicKey;
     this.privateKey = privateKey;
     this.sessions = {};
@@ -84,8 +88,14 @@ class Socket {
 
   init() {
     io.use(async (socket, next) => {
-
-      
+      let { certifcate } = socket.handshake.query;
+      certifcate = JSON.parse(certifcate);
+      const res = verifyCertifacte(certifcate);
+      console.log(res);
+      if (res.error) {
+        return;
+      }
+      socket.certifcate = certifcate;
       next();
     }).on("connection", socket => {
       console.log("\n");
@@ -111,26 +121,12 @@ class Socket {
       symmetric.setKye(key);
       symmetric.setIv(iv);
 
-      socket.emit(THIS_IS_MY_PUBLIC_KEY, this.publicKey);
+      console.log(socket.certifcate.publicId);
+      asymmetric.setReceiverPublicKey(socket.certifcate.publicId);
+      hybrid.setReceiverPublicKey(socket.certifcate.publicId);
 
-      socket.on(THIS_IS_MY_PUBLIC_KEY, data => {
-        console.log("\n");
-
-        console.log(
-          chalk.bgCyan.bold(" Get Public key for "),
-          "Socket id:",
-          chalk.blue.bold(socket.id)
-        );
-        console.log("\n");
-
-        console.log(chalk.bgGray.blue(data.toString()));
-        console.log("\n");
-
-        printLine();
-
-        asymmetric.setReceiverPublicKey(data);
-        hybrid.setReceiverPublicKey(data);
-      });
+      // socket.emit(THIS_IS_MY_PUBLIC_KEY, this.publicKey);
+      socket.emit("serverCertifcate", serverCertifcate);
 
       socket.on(SEND_TRANSACTION, async data => {
         const { signature } = data;
@@ -258,6 +254,25 @@ class Socket {
         printLine();
 
         delete this.sessions[socket.id];
+      });
+
+      socket.on(THIS_IS_MY_PUBLIC_KEY, data => {
+        // console.log("\n");
+
+        // console.log(
+        //   chalk.bgCyan.bold(" Get Public key for "),
+        //   "Socket id:",
+        //   chalk.blue.bold(socket.id)
+        // );
+        // console.log("\n");
+
+        // console.log(chalk.bgGray.blue(data.toString()));
+        // console.log("\n");
+
+        // printLine();
+
+        asymmetric.setReceiverPublicKey(data);
+        hybrid.setReceiverPublicKey(data);
       });
     });
   }

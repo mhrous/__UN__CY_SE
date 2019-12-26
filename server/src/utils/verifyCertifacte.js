@@ -1,12 +1,7 @@
-const publicKeyCA = require("../../publicKeyCA");
-const PASSPHRASE = "1234567";
-console.log(
-  publicKeyCA,
-  9999999999999999999999999999999999999999999999999999999999999999
-);
-
-const crypto = require("crypto");
-module.exports = certifcateObj => {
+import crypto from "crypto";
+import publicKeyCA from "../publicKeyCA";
+import { PASSPHRASE } from "../config";
+export default certifcateObj => {
   const {
     validTo,
     validFrom,
@@ -35,15 +30,14 @@ module.exports = certifcateObj => {
     validTo,
     validFrom,
     signatureAlgorithim,
-    signature,
     signatureHashAlgorithim,
-    publicId
+    publicId,
+    subject
   };
-console.log(data)
+
   const verify = crypto.createVerify("SHA256");
   verify.write(JSON.stringify(data));
   verify.end();
-  console.log(publicKeyCA);
   const resSignature = verify.verify(
     { key: publicKeyCA, passphrase: PASSPHRASE },
     signature,
@@ -53,5 +47,5 @@ console.log(data)
     return { error: "Error in Signature" };
   }
 
-  return {};
+  return { susses: "no Error" };
 };

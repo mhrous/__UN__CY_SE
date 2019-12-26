@@ -69,6 +69,12 @@ Object.defineProperty(exports, "SIGNATURE_ERROR", {
     return _soketEvent.SIGNATURE_ERROR;
   }
 });
+Object.defineProperty(exports, "verifyCertifacte", {
+  enumerable: true,
+  get: function () {
+    return _verifyCertifacte.default;
+  }
+});
 
 var _db = require("./db");
 
@@ -81,5 +87,7 @@ var _HybridCryptography = _interopRequireDefault(require("./HybridCryptography")
 var _help = require("./help");
 
 var _soketEvent = require("./soketEvent");
+
+var _verifyCertifacte = _interopRequireDefault(require("./verifyCertifacte"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
