@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="./assets/lib/bootstrap-sweetalert/css/bootstrap-sweetalert.min.css"
+    />
+    <link rel="stylesheet" href="./assets/lib/argon.css" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <main id="app" class="min-vh-100">
+      <div v-if='pageActive ==="logIn"' id="log" class="min-vh-100">
+        <div class="box">
+          <img src="./assets/lib/user.PNG" alt="user" />
+          <input
+            @keyup.enter="signIn"
+            type="text"
+            v-model="logIn.userName"
+            placeholder="User Name"
+          />
+          <input
+            @keyup.enter="signIn"
+            type="password"
+            v-model="logIn.password"
+            placeholder="Password"
+          />
+          <button class="button is-medium" @click="signIn">Log In</button>
+        </div>
+      </div>
+      <div v-if='pageActive !=="logIn"'>not</div>
+    </main>
+
+    <script src="./assets/lib/jquery.js"></script>
+    <script src="./assets/lib/bootstrap-sweetalert/js/bootstrap-sweetalert.min.js"></script>
+    <script src="./assets/lib/Socket.IO/Socket.IO.js"></script>
+    <script src="./assets/lib/vue/vue.min.js"></script>
+    <script src="./assets/js/main.js"></script>
+  </body>
+</html>

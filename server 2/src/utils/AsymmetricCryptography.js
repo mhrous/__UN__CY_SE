@@ -1,5 +1,5 @@
-const crypto = require("crypto");
-
+import crypto from "crypto";
+import { PASSPHRASE } from "../config";
 class AsymmetricCryptography {
   constructor() {
     this.publicKey = null;
@@ -22,7 +22,6 @@ class AsymmetricCryptography {
   encrypt(data) {
     if (typeof data == "object") data = JSON.stringify(data);
     const buffer = Buffer.from(data, "utf8");
-    console.log(this.receiverPublicKey +"5")
 
     const encrypted = crypto.publicEncrypt(this.receiverPublicKey, buffer);
 
@@ -41,4 +40,4 @@ class AsymmetricCryptography {
   }
 }
 
-module.exports = AsymmetricCryptography;
+export default AsymmetricCryptography;

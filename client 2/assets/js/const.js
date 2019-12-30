@@ -1,0 +1,11 @@
+const IP = "localhost";
+const PORT = "4000";
+
+const SEND_TRANSACTION = "SEND_TRANSACTION";
+const RECEIVE_TRANSACTION = "RECEIVE_TRANSACTION";
+const THIS_IS_MY_PUBLIC_KEY = "THIS_IS_MY_PUBLIC_KEY";
+const RECEIVE_PUBLIC_KEY = "RECEIVE_PUBLIC_KEY";
+const ERROR = "ERROR";
+const NO_ERROR = "NO_ERROR";
+const SESSION_ERROR ="session error"
+const SIGNATURE_ERROR ="session error"

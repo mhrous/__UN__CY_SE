@@ -1,0 +1,72 @@
+:root {
+  --main-color: #56baed;
+  --btn-color: #56baed;
+  --btn-color-on-hover: #39ace7;
+}
+
+#log {
+  background: var(--main-color);
+
+  min-height: 100vh !important;
+  position: relative;
+}
+
+#log .box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 3rem 1rem;
+  width: 420px;
+  border-radius: 10px;
+  text-align: center;
+}
+#log .box img {
+  display: block;
+  margin: 0 auto 1rem auto;
+  width: 140px;
+}
+
+*:focus {
+  outline: none;
+}
+
+#log .box input {
+  background-color: #f6f6f6;
+  border: none;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  width: 85%;
+  border: 2px solid #f6f6f6;
+
+  transition: all 0.5s ease-in-out;
+  border-radius: 5px 5px 5px 5px;
+}
+
+#log .box input:focus {
+  background-color: #fff;
+  border-bottom: 2px solid #5fbae9;
+}
+
+#log .box input:placeholder {
+  color: #cccccc;
+}
+
+#log .box button {
+  background: var(--btn-color);
+  color: #fff;
+  margin-top: 1rem;
+  transition: all 0.5s;
+  padding-left: 2.8rem;
+  padding-right: 2.8rem;
+}
+
+#log .box button:hover {
+  background: var(--btn-color-on-hover);
+  transform: translateY(-2px);
+}
