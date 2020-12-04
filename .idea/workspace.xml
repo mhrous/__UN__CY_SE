@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:npm_and_yarn" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:dependabot" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:npm_and_yarn" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:CA" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="61a61e52-081b-47d1-934f-4539b204d76c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/ios_client/assets/js/sokect.io.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios_client/assets/js/sweetalert2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios_client/css/editor.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios_client/css/style.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios_client/js/config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios_client/js/cryptography/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios_client/js/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios_client/js/mySocket.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios_client/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios_client/preload.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios_server/src/cryptography/AsymmetricCryptography.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios_server/src/cryptography/HybridCryptography.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios_server/src/cryptography/SymmetricCryptography.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios_server/src/cryptography/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios_server/src/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios_server/src/server.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios_server/src/utils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client 2/assets/js/SymmetricCryptography.js" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1kukix5OeRWEWydNLcT1JrZMpDu" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ios_client/js/cryptography" />
+      <recent name="$PROJECT_DIR$/ios_client/js" />
+      <recent name="$PROJECT_DIR$/ios_client/css" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ios_server" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="61a61e52-081b-47d1-934f-4539b204d76c" name="Default Changelist" comment="" />
+      <created>1606557994815</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1606557994815</updated>
+      <workItem from="1606557996302" duration="36025000" />
+      <workItem from="1606631792852" duration="189000" />
+      <workItem from="1606664627820" duration="1332000" />
+      <workItem from="1606717094866" duration="61000" />
+      <workItem from="1606867385704" duration="10548000" />
+      <workItem from="1606877951682" duration="5242000" />
+      <workItem from="1606891344985" duration="21000" />
+      <workItem from="1606921669111" duration="2117000" />
+      <workItem from="1606939122684" duration="1145000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="761" y="296" width="426" height="483" key="FileChooserDialogImpl" timestamp="1606891365654">
+      <screen x="36" y="0" width="1884" height="1080" />
+    </state>
+    <state x="761" y="296" width="426" height="483" key="FileChooserDialogImpl/36.0.1884.1080@36.0.1884.1080" timestamp="1606891365654" />
+    <state x="682" y="277" width="592" height="522" key="find.popup" timestamp="1606883190123">
+      <screen x="36" y="0" width="1884" height="1080" />
+    </state>
+    <state x="682" y="277" width="592" height="522" key="find.popup/36.0.1884.1080@36.0.1884.1080" timestamp="1606883190123" />
+    <state x="363" y="247" key="run.anything.popup" timestamp="1606573075386">
+      <screen x="36" y="0" width="1884" height="1080" />
+    </state>
+    <state x="363" y="247" key="run.anything.popup/36.0.1884.1080@36.0.1884.1080" timestamp="1606573075386" />
+    <state x="363" y="239" width="672" height="678" key="search.everywhere.popup" timestamp="1606564294662">
+      <screen x="36" y="0" width="1884" height="1080" />
+    </state>
+    <state x="363" y="239" width="672" height="678" key="search.everywhere.popup/36.0.1884.1080@36.0.1884.1080" timestamp="1606564294662" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/ios_server/src/socket.js</url>
+          <line>165</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/ios_client/js/mySocket.js</url>
+          <line>51</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/ios_server/src/cryptography/index.js</url>
+          <line>37</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

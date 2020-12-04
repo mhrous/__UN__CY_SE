@@ -1,0 +1,16 @@
+{
+  "name": "ios_client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^7.1.2",
+    "electron-reload": "^1.5.0"
+  } ,
+  "keywords": [],
+  "author": "tech_shyp_studio <tech@shyp.studio>",
+  "license": "MIT"
+}

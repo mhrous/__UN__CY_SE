@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./assets/css/fontAwesom.css">
+    <link rel="stylesheet" href="./assets/css/bulma.css">
+    <link rel="stylesheet" href="./css/editor.css">
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+<body>
+<div
+        class="container"
+        id="app"
+
+>
+    <div class="header">
+
+
+        <div class="field search-input">
+        <p class="control has-icons-right">
+            <input
+                    class="input is-large is-rounded"
+                   @keyup.enter="searchMethod()"
+                   v-model="search"
+                   type="text"
+                   placeholder="search ..."
+            />
+            <span class="icon is-small is-right">
+                <i class="fas fa-search"></i>
+            </span>
+        </p>
+    </div>
+        <button class="button is-link create-btn" @click="createText()">Create</button>
+
+    </div>
+
+        <div class="app-content" v-show="mode!==null">
+            <div class="card">
+                <header class="card-header">
+                    <input
+                            v-if="mode === 'update' || mode === 'create'"
+                            class="input is-large title-input"
+                            v-model="title"
+                            type="text"
+                            placeholder="Normal input">
+
+                    <p v-if="mode !== 'update' && mode !== 'create'" class="card-header-title">
+                        {{title}}
+                    </p>
+                </header>
+                <div class="card-content">
+                        <div class="newPost">
+
+                            <div class="toolbar" v-if="mode === 'update' || mode === 'create'">
+                                <button type="button" @click="onTextBtn('bold')" ><i class="fa fa-bold"></i></button>
+                                <button type="button" @click="onTextBtn('italic')" ><i class="fa fa-italic"></i></button>
+                                <button type="button" @click="onTextBtn('underline')" ><i class="fa fa-underline"></i></button>
+                                <button type="button" @click="onTextBtn('justifyleft')" ><i class="fa fa-align-left"></i></button>
+                                <button type="button" @click="onTextBtn('justifycenter')" ><i class="fa fa-align-center"></i></button>
+                                <button type="button" @click="onTextBtn('justifyright')" ><i class="fa fa-align-right"></i></button>
+                                <button type="button" @click="onTextBtn('insertunorderedlist')" ><i class="fa fa-list-ul"></i></button>
+                                <button type="button" @click="onTextBtn('insertorderedlist')" ><i class="fa fa-list-ol"></i></button>
+                                <div class="customSelect">
+                                    <select   @change="(e)=>onTextBtn('fontname',e.target.value)">
+                                        <optgroup label="Serif Fonts">
+                                            <option value="Bree Serif">Bree Serif</option>
+                                            <option value="Georgia">Georgia</option>
+                                            <option value="Palatino Linotype">Palatino Linotype</option>
+                                            <option value="Times New Roman">Times New Roman</option>
+                                        </optgroup>
+                                        <optgroup label="Sans Serif Fonts">
+                                            <option value="Arial">Arial</option>
+                                            <option value="Arial Black">Arial Black</option>
+                                            <option value="Asap" selected>Asap</option>
+                                            <option value="Comic Sans MS">Comic Sans MS</option>
+                                            <option value="Impact">Impact</option>
+                                            <option value="Lucida Sans Unicode">Lucida Sans Unicode</option>
+                                            <option value="Tahoma">Tahoma</option>
+                                            <option value="Trebuchet MS">Trebuchet MS</option>
+                                            <option value="Verdana">Verdana</option>
+                                        </optgroup>
+                                        <optgroup label="Monospace Fonts">
+                                            <option value="Courier New">Courier New</option>
+                                            <option value="Lucida Console">Lucida Console</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                <div class="customSelect">
+                                    <select  @change="(e)=>onTextBtn('formatblock',e.target.value)">
+                                        <option value="h1">Heading 1</option>
+                                        <option value="h2">Heading 2</option>
+                                        <option value="h4">Subtitle</option>
+                                        <option value="p" selected>Paragraph</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div
+                                    id="content"
+                                    class="editor"
+                                    :contenteditable="mode === 'update' || mode === 'create'"
+                                    :class="{'view-editor':mode !== 'update' && mode !== 'create'}"
+                                    v-html="content"
+                            ></div>
+
+                        </div>
+
+                </div>
+                <footer class="card-footer">
+                    <a @click="saveText()" href="#" v-if="mode==='update'|| mode==='create'" class="card-footer-item">Save</a>
+                    <a @click="update()" href="#" v-if="mode==='read'" class="card-footer-item">Edit</a>
+                    <a @click="deleteText()" href="#" v-if="mode==='read'" class="card-footer-item">Delete</a>
+                    <a @click="cancel()" href="#" v-if="mode==='update'|| mode==='create'" class="card-footer-item">cancel</a>
+
+                </footer>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<script src="./assets/js/fontAwesom.js"></script>
+<script src="./assets/js/vue.js"></script>
+<script src="./assets/js/sokect.io.js"></script>
+<script src="./assets/js/sweetalert2.js"></script>
+<script src="./js/config.js"></script>
+<script src ="./js/cryptography/index.js"></script>
+<script src="./js/mySocket.js"></script>
+<script src="./js/index.js"></script>
+</body>
+</html>
