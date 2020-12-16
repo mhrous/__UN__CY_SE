@@ -18,7 +18,7 @@ function createWindow() {
     mainWindow.maximize();
     mainWindow.show();
     mainWindow.autoHideMenuBar = true;
-    mainWindow.loadFile("index.html");
+    mainWindow.loadFile("login.html");
 
     mainWindow.on("closed", function() {
         mainWindow = null;

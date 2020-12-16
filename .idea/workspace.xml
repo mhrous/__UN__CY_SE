@@ -41,24 +41,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="61a61e52-081b-47d1-934f-4539b204d76c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ios_client/assets/js/sokect.io.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios_client/assets/js/sweetalert2.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios_client/css/editor.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios_client/css/style.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios_client/js/config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios_client/js/cryptography/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios_client/js/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios_client/js/mySocket.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios_client/main.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios_client/preload.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios_server/src/cryptography/AsymmetricCryptography.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios_server/src/cryptography/HybridCryptography.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios_server/src/cryptography/SymmetricCryptography.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios_server/src/cryptography/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios_server/src/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios_server/src/server.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios_server/src/utils.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client 2/assets/js/SymmetricCryptography.js" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios_ca/src/model/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios_client/js/login.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ios_client/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CA 2/src/initKey.js" beforeDir="false" afterPath="$PROJECT_DIR$/CA 2/src/initKey.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_client/js/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_client/js/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_client/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_client/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/ios_server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_server/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios_server/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,8 +59,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="CSS File" />
+        <option value="HTML File" />
         <option value="JavaScript File" />
       </list>
     </option>
@@ -80,7 +71,6 @@
   <component name="ProjectId" id="1kukix5OeRWEWydNLcT1JrZMpDu" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -119,6 +109,19 @@
       <workItem from="1606891344985" duration="21000" />
       <workItem from="1606921669111" duration="2117000" />
       <workItem from="1606939122684" duration="1145000" />
+      <workItem from="1607058510990" duration="719000" />
+      <workItem from="1607072347437" duration="50000" />
+      <workItem from="1607765899361" duration="10074000" />
+      <workItem from="1607839936486" duration="1876000" />
+      <workItem from="1608076993286" duration="59000" />
+      <workItem from="1608077412022" duration="196000" />
+      <workItem from="1608077684746" duration="56000" />
+      <workItem from="1608077791606" duration="5000" />
+      <workItem from="1608077813902" duration="401000" />
+      <workItem from="1608078231486" duration="103000" />
+      <workItem from="1608078355959" duration="147000" />
+      <workItem from="1608078542657" duration="107000" />
+      <workItem from="1608078758964" duration="28000" />
     </task>
     <servers />
   </component>
@@ -138,10 +141,14 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="761" y="296" width="426" height="483" key="FileChooserDialogImpl" timestamp="1606891365654">
+    <state x="761" y="304" width="426" height="475" key="FileChooserDialogImpl" timestamp="1607844171002">
       <screen x="36" y="0" width="1884" height="1080" />
     </state>
-    <state x="761" y="296" width="426" height="483" key="FileChooserDialogImpl/36.0.1884.1080@36.0.1884.1080" timestamp="1606891365654" />
+    <state x="761" y="304" width="426" height="475" key="FileChooserDialogImpl/36.0.1884.1080@36.0.1884.1080" timestamp="1607844171002" />
+    <state x="574" y="277" key="Vcs.Push.Dialog.v2" timestamp="1607058516073">
+      <screen x="36" y="0" width="1884" height="1080" />
+    </state>
+    <state x="574" y="277" key="Vcs.Push.Dialog.v2/36.0.1884.1080@36.0.1884.1080" timestamp="1607058516073" />
     <state x="682" y="277" width="592" height="522" key="find.popup" timestamp="1606883190123">
       <screen x="36" y="0" width="1884" height="1080" />
     </state>
@@ -172,6 +179,11 @@
           <url>file://$PROJECT_DIR$/ios_server/src/cryptography/index.js</url>
           <line>37</line>
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/ios_ca/src/server.js</url>
+          <line>16</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

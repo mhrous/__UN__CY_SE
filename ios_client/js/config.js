@@ -1,6 +1,8 @@
 const IP = "localhost";
 const PORT = "3000";
 
+const CA_GET_CERTIFICATE_URL="http://localhost:4000/certificate"
+
 const SOCKET_EVENT = {
     CREATE_FILE:"create_file",
     DELETE_FILE:"delete_file",

@@ -19,7 +19,7 @@ const { publicKey, privateKey } = generateKeyPairSync("rsa", {
 });
 
 writeFileSync(
-  path.join(__dirname, "/myKey.js"),
+    path.join(__dirname, "/CA_KEY.js"),
     `
 export const publicKey =\`${publicKey}\` 
  
