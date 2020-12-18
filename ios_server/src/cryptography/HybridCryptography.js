@@ -30,8 +30,13 @@ class HybridCryptography {
         const _kye = crypto.randomBytes(32);
 
         this.setKye(_kye);
+        console.log(1)
         const dataEncrypt = this.symmetric.encrypt(data);
+        console.log(2)
+
         const keyEncrypt = this.asymmetric.encrypt({ _kye });
+        console.log(3)
+
         const sign = crypto.createSign("SHA256");
         sign.write(data);
         sign.end();
@@ -42,11 +47,15 @@ class HybridCryptography {
         return { dataEncrypt, keyEncrypt, signature };
     }
     decrypt(data, returnJson = true) {
+
         const { dataEncrypt, keyEncrypt, signature } = data;
         const { _kye } = this.asymmetric.decrypt(keyEncrypt);
         this.setKye(_kye);
 
+        // console.log(2,this.symmetric.receiverPublicKey,this.asymmetric.privateKey,this.asymmetric.publicKey,)
+
         const dataDecrupt = this.symmetric.decrypt(dataEncrypt, false);
+        // console.log({dataDecrupt,key: this.asymmetric.receiverPublicKey, passphrase: PASSPHRASE,signature})
 
         const verify = crypto.createVerify("SHA256");
         verify.write(dataDecrupt);

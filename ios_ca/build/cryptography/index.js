@@ -21,6 +21,12 @@ Object.defineProperty(exports, "HybridCryptography", {
     return _HybridCryptography.default;
   }
 });
+Object.defineProperty(exports, "Certifcate", {
+  enumerable: true,
+  get: function () {
+    return _certifcate.default;
+  }
+});
 exports.generateKeyPairSync = exports.decrypt = exports.encrypt = exports.getHash = void 0;
 
 var _crypto = _interopRequireDefault(require("crypto"));
@@ -32,6 +38,10 @@ var _SymmetricCryptography = _interopRequireDefault(require("./SymmetricCryptogr
 var _AsymmetricCryptography = _interopRequireDefault(require("./AsymmetricCryptography"));
 
 var _HybridCryptography = _interopRequireDefault(require("./HybridCryptography"));
+
+var _certifcate = _interopRequireDefault(require("./certifcate"));
+
+var _utils = require("../utils");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -57,16 +67,21 @@ exports.generateKeyPairSync = generateKeyPairSync;
 
 const encrypt = ({
   data,
-  symmetricCryptography,
-  asymmetricCryptography,
   hybridCryptography
 }) => {
+  console.log({
+    data,
+    hybridCryptography
+  });
+
   switch (_config.TYPE_ACTIVE) {
     case _config.TYPE_LIST.SYMMETRIC:
-      return symmetricCryptography.encrypt(data);
+      console.log((0, _utils.red)("error : "), "work only with hybrid cryptography");
+      throw new Error();
 
     case _config.TYPE_LIST.ASYMMETRIC:
-      return asymmetricCryptography.encrypt(data);
+      console.log((0, _utils.red)("error : "), "work only with hybrid cryptography");
+      throw new Error();
 
     case _config.TYPE_LIST.HYBRID:
       return hybridCryptography.encrypt(data);
@@ -80,16 +95,16 @@ exports.encrypt = encrypt;
 
 const decrypt = ({
   data,
-  symmetricCryptography,
-  asymmetricCryptography,
   hybridCryptography
 }) => {
   switch (_config.TYPE_ACTIVE) {
     case _config.TYPE_LIST.SYMMETRIC:
-      return symmetricCryptography.decrypt(data);
+      console.log((0, _utils.red)("error : "), "work only with hybrid cryptography");
+      throw new Error();
 
     case _config.TYPE_LIST.ASYMMETRIC:
-      return asymmetricCryptography.decrypt(data);
+      console.log((0, _utils.red)("error : "), "work only with hybrid cryptography");
+      throw new Error();
 
     case _config.TYPE_LIST.HYBRID:
       return hybridCryptography.decrypt(data);

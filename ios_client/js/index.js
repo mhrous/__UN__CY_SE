@@ -1,3 +1,15 @@
+
+const token = localStorage.getItem("token")
+if (!token) {
+    window.location.replace("./login.html");
+}else{
+    publicKey=  localStorage.getItem("publicKey")
+    privateKey=localStorage.getItem("privateKey")
+    asymmetricCryptography.setPublicKey(publicKey)
+    asymmetricCryptography.setPrivateKey(privateKey)
+    hybridCryptography.setPublicKey(publicKey)
+    hybridCryptography.setPrivateKey(privateKey)
+}
 const mode = {
     CREATE: "create",
     UPDATE: "update",
@@ -14,7 +26,9 @@ const app = new Vue({
         title: "",
         content: "",
         lastTitle:'',
-        lastContent:""
+        lastContent:"",
+        ...JSON.parse(token).subject
+        
     },
 
     methods: {
@@ -111,6 +125,11 @@ const app = new Vue({
                 const dataEncrypt = encrypt({data})
                 socket.emit(SOCKET_EVENT.CREATE_FILE,dataEncrypt)
             }
+
+        },
+        logOut(){
+            localStorage.clear()
+            window.location.replace("./login.html");
 
         }
 

@@ -11,10 +11,11 @@ const SOCKET_EVENT = {
     CRYPTOGRAPHY_ERROR:"cryptography_error",
     ERROR:"ERROR",
     SUCCESS:"success",
-    THIS_MY_PUBLIC_KEY :"this_my_public_Key"
+    THIS_MY_PUBLIC_KEY :"this_my_public_Key",
+    THIS_MY_CERTIFCATE:"this_my_certifcate"
 
 }
-const PASSPHRASE = "123456789"
+const PASSPHRASE = "1234567"
 
 
 const TYPE_LIST ={
@@ -23,14 +24,4 @@ const TYPE_LIST ={
     HYBRID:"hybrid"
 }
 
-const TYPE_ACTIVE = TYPE_LIST.SYMMETRIC;
-
-
-
-// module.exports ={
-//     PASSPHRASE,
-//     TYPE_ACTIVE,
-//     SOCKET_EVENT,
-//     PORT,
-//     IP
-// }
+const TYPE_ACTIVE = TYPE_LIST.HYBRID;

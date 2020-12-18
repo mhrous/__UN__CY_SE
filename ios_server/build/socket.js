@@ -17,6 +17,12 @@ var _utils = require("./utils");
 
 var _cryptography = require("./cryptography");
 
+var _axios = _interopRequireDefault(require("axios"));
+
+var _CA_KEY = require("../CA_KEY");
+
+var _model = require("./model");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -26,6 +32,7 @@ const app = (0, _express.default)();
 const server = _http.default.Server(app);
 
 const io = (0, _socket.default)(server);
+const certifcate = new _cryptography.Certifcate();
 
 class Socket {
   constructor() {
@@ -112,17 +119,34 @@ class Socket {
     } = (0, _cryptography.generateKeyPairSync)();
     this.publicKey = publicKey;
     this.privateKey = privateKey;
+    this.certifcate = null;
     this.init();
   }
 
-  init() {
+  async init() {
+    const hybridCryptography = new _cryptography.HybridCryptography(this.publicKey, this.privateKey);
+    hybridCryptography.setReceiverPublicKey(_CA_KEY.publicKey);
+    const obj = {
+      password: "123456",
+      userName: "admin"
+    };
+    const encryptData = (0, _cryptography.encrypt)({
+      data: obj,
+      hybridCryptography
+    });
+    const {
+      data
+    } = await _axios.default.post(_config.CA_GET_CERTIFICATE_URL, {
+      encryptData,
+      publicKey: this.publicKey
+    });
+    const decryptData = (0, _cryptography.decrypt)({
+      data,
+      hybridCryptography
+    });
+    console.log(decryptData);
+    this.certifcate = decryptData;
     io.use((socket, next) => {
-      //
-      //
-      //
-      //
-      //
-      //
       next();
     }).on("connection", socket => {
       this.eventStartHandel({
@@ -135,12 +159,32 @@ class Socket {
       const symmetricCryptographyKey = (0, _cryptography.getHash)(socket.id);
       symmetricCryptography.setKye(symmetricCryptographyKey); // symmetricCryptography.setKye("errorerrorerrorerrorerrorerrorer")
 
+      let sokectCertifcate = null;
+
       if (_config.TYPE_ACTIVE !== _config.TYPE_LIST.SYMMETRIC) {
-        socket.emit(_config.SOCKET_EVENT.THIS_MY_PUBLIC_KEY, {
-          publicKey: this.publicKey
+        // socket.emit(SOCKET_EVENT.THIS_MY_PUBLIC_KEY,{publicKey:this.publicKey})
+        socket.emit(_config.SOCKET_EVENT.THIS_MY_CERTIFCATE, {
+          certifcate: this.certifcate
         });
       }
 
+      socket.on(_config.SOCKET_EVENT.THIS_MY_CERTIFCATE, ({
+        certifcate: userCertifcate
+      }) => {
+        const {
+          error
+        } = certifcate.verify(userCertifcate);
+
+        if (error) {
+          console.log((0, _utils.red)("error certficate"), error, socket.id);
+          return;
+        }
+
+        sokectCertifcate = userCertifcate;
+        asymmetricCryptography.setReceiverPublicKey(userCertifcate.publicId);
+        hybridCryptography.setReceiverPublicKey(userCertifcate.publicId);
+        console.log(hybridCryptography.symmetric.r);
+      });
       socket.on(_config.SOCKET_EVENT.THIS_MY_PUBLIC_KEY, data => {
         this.eventStartHandel({
           socketEvent: "received socket public key",
@@ -152,6 +196,24 @@ class Socket {
         hybridCryptography.setReceiverPublicKey(data.publicKey);
       });
       socket.on(_config.SOCKET_EVENT.READ_FILE, data => {
+        if (sokectCertifcate === null) {
+          console.log((0, _utils.red)("error certficate"), error, socket.id);
+          return;
+        }
+
+        if (!sokectCertifcate.subject.can.includes("read")) {
+          this.emitResultHandle({
+            socket,
+            data: {
+              data: "you dont have permission"
+            },
+            socketEvent: _config.SOCKET_EVENT.ERROR,
+            hybridCryptography,
+            symmetricCryptography,
+            asymmetricCryptography
+          });
+        }
+
         const decryptData = this.eventStartHandel({
           socketEvent: _config.SOCKET_EVENT.READ_FILE,
           socket,
@@ -177,6 +239,15 @@ class Socket {
             asymmetricCryptography
           });
         } else {
+          _model.Operations.create({
+            user: sokectCertifcate.subject,
+            data: {
+              fileName: decryptData.title
+            },
+            type: "read",
+            signature: data.signature
+          });
+
           this.emitResultHandle({
             socket,
             data: result,
@@ -188,6 +259,24 @@ class Socket {
         }
       });
       socket.on(_config.SOCKET_EVENT.CREATE_FILE, data => {
+        if (sokectCertifcate === null) {
+          console.log((0, _utils.red)("error certficate"), error, socket.id);
+          return;
+        }
+
+        if (!sokectCertifcate.subject.can.includes("add")) {
+          this.emitResultHandle({
+            socket,
+            data: {
+              data: "you dont have permission"
+            },
+            socketEvent: _config.SOCKET_EVENT.ERROR,
+            hybridCryptography,
+            symmetricCryptography,
+            asymmetricCryptography
+          });
+        }
+
         const decryptData = this.eventStartHandel({
           socketEvent: _config.SOCKET_EVENT.CREATE_FILE,
           socket,
@@ -214,6 +303,16 @@ class Socket {
             asymmetricCryptography
           });
         } else {
+          _model.Operations.create({
+            user: sokectCertifcate.subject,
+            data: {
+              text: decryptData.content,
+              fileName: decryptData.title
+            },
+            type: "add",
+            signature: data.signature
+          });
+
           this.emitResultHandle({
             socket,
             data: {
@@ -227,6 +326,24 @@ class Socket {
         }
       });
       socket.on(_config.SOCKET_EVENT.DELETE_FILE, data => {
+        if (sokectCertifcate === null) {
+          console.log((0, _utils.red)("error certficate"), error, socket.id);
+          return;
+        }
+
+        if (!sokectCertifcate.subject.can.includes("delete")) {
+          this.emitResultHandle({
+            socket,
+            data: {
+              data: "you dont have permission"
+            },
+            socketEvent: _config.SOCKET_EVENT.ERROR,
+            hybridCryptography,
+            symmetricCryptography,
+            asymmetricCryptography
+          });
+        }
+
         const decryptData = this.eventStartHandel({
           socketEvent: _config.SOCKET_EVENT.DELETE_FILE,
           socket,
@@ -241,6 +358,15 @@ class Socket {
         });
 
         if (result === "success") {
+          _model.Operations.create({
+            user: sokectCertifcate.subject,
+            data: {
+              fileName: decryptData.title
+            },
+            type: "delete",
+            signature: data.signature
+          });
+
           this.emitResultHandle({
             socket,
             data: {
@@ -254,6 +380,24 @@ class Socket {
         }
       });
       socket.on(_config.SOCKET_EVENT.UPDATE_FILE, data => {
+        if (sokectCertifcate === null) {
+          console.log((0, _utils.red)("error certficate"), error, socket.id);
+          return;
+        }
+
+        if (!sokectCertifcate.subject.can.includes("update")) {
+          this.emitResultHandle({
+            socket,
+            data: {
+              data: "you dont have permission"
+            },
+            socketEvent: _config.SOCKET_EVENT.ERROR,
+            hybridCryptography,
+            symmetricCryptography,
+            asymmetricCryptography
+          });
+        }
+
         const decryptData = this.eventStartHandel({
           socketEvent: _config.SOCKET_EVENT.UPDATE_FILE,
           socket,
@@ -268,6 +412,18 @@ class Socket {
           newFileName: decryptData.title,
           newText: decryptData.content
         });
+
+        _model.Operations.create({
+          user: sokectCertifcate.subject,
+          data: {
+            lastFileName: decryptData.lastTitle,
+            newFileName: decryptData.title,
+            newText: decryptData.content
+          },
+          type: "update",
+          signature: data.signature
+        });
+
         this.emitResultHandle({
           socket,
           data: {
@@ -291,7 +447,7 @@ class Socket {
     });
   }
 
-  start() {
+  async start() {
     server.close();
     server.listen(_config.PORT, () => {
       console.log(_utils.line);

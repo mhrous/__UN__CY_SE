@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 const SymmetricCryptography = require("./SymmetricCryptography");
 const AsymmetricCryptography = require("./AsymmetricCryptography");
-const PASSPHRASE = "123456789"
+const PASSPHRASE = "1234567"
 
 class HybridCryptography {
     constructor(publicKey=null,privateKey = null,receiverPublicKey =  null) {
@@ -35,7 +35,11 @@ class HybridCryptography {
 
         this.setKye(_kye);
         const dataEncrypt = this.symmetric.encrypt(data);
+        console.log(666666666)
+
         const keyEncrypt = this.asymmetric.encrypt({_kye});
+        console.log(55555555555)
+
         const sign = crypto.createSign("SHA256");
         sign.write(data);
         sign.end();
@@ -43,6 +47,7 @@ class HybridCryptography {
             {key: this.asymmetric.privateKey, passphrase: PASSPHRASE},
             "hex"
         );
+
         return {dataEncrypt, keyEncrypt, signature};
     }
 
@@ -50,7 +55,6 @@ class HybridCryptography {
         const {dataEncrypt, keyEncrypt, signature} = data;
         const {_kye} = this.asymmetric.decrypt(keyEncrypt);
         this.setKye(_kye);
-
         const dataDecrupt = this.symmetric.decrypt(dataEncrypt, false);
 
         const verify = crypto.createVerify("SHA256");

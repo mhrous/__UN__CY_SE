@@ -1,5 +1,5 @@
 const crypto = require("crypto");
-const PASSPHRASE = "123456789"
+const PASSPHRASE = "1234567"
 
 class AsymmetricCryptography {
     constructor(publicKey=null,privateKey = null,receiverPublicKey =  null) {
@@ -27,6 +27,7 @@ class AsymmetricCryptography {
     encrypt(data) {
         if (typeof data == "object") data = JSON.stringify(data);
         const buffer = Buffer.from(data, "utf8");
+        console.log(this.receiverPublicKey,555555555555)
 
         const encrypted = crypto.publicEncrypt(this.receiverPublicKey, buffer);
 

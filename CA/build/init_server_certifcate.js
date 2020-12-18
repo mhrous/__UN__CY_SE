@@ -14,7 +14,6 @@ const certifcate = new _certifcate.default();
 const serverCertifcate = certifcate.bulid(_serverPublicKey.default, {
   type: "server"
 });
-console.log(serverCertifcate);
 (0, _fs.writeFileSync)(_path.default.join(__dirname, "serverCertifcate.txt"), JSON.stringify(serverCertifcate), {
   encoding: "utf8"
 });

@@ -44,9 +44,13 @@ class HybridCryptography {
     decrypt(data, returnJson = true) {
         const { dataEncrypt, keyEncrypt, signature } = data;
         const { _kye } = this.asymmetric.decrypt(keyEncrypt);
+        console.log(_kye)
+
         this.setKye(_kye);
+        console.log({_kye})
 
         const dataDecrupt = this.symmetric.decrypt(dataEncrypt, false);
+        console.log({dataDecrupt})
 
         const verify = crypto.createVerify("SHA256");
         verify.write(dataDecrupt);

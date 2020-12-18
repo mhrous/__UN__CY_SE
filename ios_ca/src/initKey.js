@@ -21,8 +21,20 @@ const { publicKey, privateKey } = generateKeyPairSync("rsa", {
 writeFileSync(
     path.join(__dirname, "/CA_KEY.js"),
     `
-export const publicKey =\`${publicKey}\` 
- 
-export const privateKey =\`${privateKey}\`
+const publicKey =\`${publicKey}\` 
+
+const privateKey =\`${privateKey}\`
+
+module.exports={publicKey,privateKey}
  `
 );
+
+
+writeFileSync(path.join(__dirname,'../..',"ios_client/CA_KEY.js"),    `
+const publicKey =\`${publicKey}\` 
+module.exports={publicKey}
+ `);
+writeFileSync(path.join( __dirname,'../..',"ios_server/CA_KEY.js"),    `
+const publicKey =\`${publicKey}\` 
+module.exports={publicKey}
+ `);

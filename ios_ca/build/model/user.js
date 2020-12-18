@@ -35,6 +35,9 @@ const userSchema = new _mongoose.default.Schema({
   },
   role: {
     type: String
+  },
+  can: {
+    type: []
   }
 }, {
   timestamps: true

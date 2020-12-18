@@ -1,14 +1,16 @@
 import crypto from "crypto"
 
-import {TYPE_ACTIVE, TYPE_LIST,PASSPHRASE} from "../config"
+import { TYPE_ACTIVE, TYPE_LIST, PASSPHRASE } from "../config"
 import SymmetricCryptography from "./SymmetricCryptography"
 import AsymmetricCryptography from "./AsymmetricCryptography"
 import HybridCryptography from "./HybridCryptography"
+import  Certifcate from "./certifcate"
+import { red } from "../utils"
 
 const getHash = (pwd) => crypto.createHash('md5').update(pwd).digest('hex');
 
 
-const generateKeyPairSync =()=> crypto.generateKeyPairSync("rsa", {
+const generateKeyPairSync = () => crypto.generateKeyPairSync("rsa", {
     modulusLength: 4096,
     publicKeyEncoding: {
         type: "pkcs1",
@@ -22,12 +24,15 @@ const generateKeyPairSync =()=> crypto.generateKeyPairSync("rsa", {
     }
 });
 
-const encrypt = ({data, symmetricCryptography, asymmetricCryptography, hybridCryptography}) => {
+const encrypt = ({ data, hybridCryptography }) => {
+    console.log({ data, hybridCryptography })
     switch (TYPE_ACTIVE) {
         case TYPE_LIST.SYMMETRIC:
-            return symmetricCryptography.encrypt(data)
+            console.log(red("error : "), "work only with hybrid cryptography")
+            throw new Error()
         case TYPE_LIST.ASYMMETRIC:
-            return asymmetricCryptography.encrypt(data)
+            console.log(red("error : "), "work only with hybrid cryptography")
+            throw new Error()
         case TYPE_LIST.HYBRID:
             return hybridCryptography.encrypt(data)
         default:
@@ -35,13 +40,16 @@ const encrypt = ({data, symmetricCryptography, asymmetricCryptography, hybridCry
     }
 }
 
-const decrypt = ({data, symmetricCryptography, asymmetricCryptography, hybridCryptography}) => {
+const decrypt = ({ data, hybridCryptography }) => {
 
     switch (TYPE_ACTIVE) {
         case TYPE_LIST.SYMMETRIC:
-            return symmetricCryptography.decrypt(data)
+            console.log(red("error : "), "work only with hybrid cryptography")
+            throw new Error()
         case TYPE_LIST.ASYMMETRIC:
-            return asymmetricCryptography.decrypt(data)
+            console.log(red("error : "), "work only with hybrid cryptography")
+            throw new Error()
+
         case TYPE_LIST.HYBRID:
             return hybridCryptography.decrypt(data)
         default:
@@ -49,12 +57,13 @@ const decrypt = ({data, symmetricCryptography, asymmetricCryptography, hybridCry
     }
 }
 
-export  {
+export {
     getHash,
     encrypt,
     decrypt,
     HybridCryptography,
     AsymmetricCryptography,
     SymmetricCryptography,
-    generateKeyPairSync
+    generateKeyPairSync,
+    Certifcate
 }

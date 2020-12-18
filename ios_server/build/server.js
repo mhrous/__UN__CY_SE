@@ -7,9 +7,13 @@ exports.start = void 0;
 
 var _socket = _interopRequireDefault(require("./socket"));
 
+var _db = require("./db");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const start = async () => {
+  await (0, _db.connect)();
+
   _socket.default.start();
 };
 

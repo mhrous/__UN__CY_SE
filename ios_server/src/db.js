@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import { dbUrl } from "../config";
+import { DB_URL } from "./config";
 
-export const connect = (url = dbUrl, opts = {}) => {
+export const connect = (url = DB_URL, opts = {}) => {
   return mongoose.connect(url, {
     ...opts,
     useCreateIndex: true,

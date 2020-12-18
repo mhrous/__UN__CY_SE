@@ -5,7 +5,6 @@ socket.on("connect", function () {
     const symmetricCryptographyKey = getHash(socket.id)
 
     symmetricCryptography.setKye(symmetricCryptographyKey)
-    // symmetricCryptography.setKye("errorerrorerrorerrorerrorerrorer")
 
     socket.on(SOCKET_EVENT.THIS_MY_PUBLIC_KEY, ({publicKey}) => {
         console.log({publicKey})
@@ -13,8 +12,24 @@ socket.on("connect", function () {
         hybridCryptography.setReceiverPublicKey(publicKey)
     })
 
+    socket.on(SOCKET_EVENT.THIS_MY_CERTIFCATE, ({certifcate:serverCertifcate}) => {
+    const {error} = certifcate.verify(serverCertifcate)
+    if(error){
+    Swal.fire('error', error, 'error')
+     return
+    }
+    if(serverCertifcate.subject.role!=="server"){
+        Swal.fire('error', "its nat a server", 'error')
+        return
+    }
+    asymmetricCryptography.setReceiverPublicKey(serverCertifcate.publicId)
+    hybridCryptography.setReceiverPublicKey(serverCertifcate.publicId)
+
+    })
+
     if (TYPE_ACTIVE !== TYPE_LIST.SYMMETRIC) {
-        socket.emit(SOCKET_EVENT.THIS_MY_PUBLIC_KEY, {publicKey: PUBLIC_KYE})
+        // socket.emit(SOCKET_EVENT.THIS_MY_PUBLIC_KEY, {publicKey: PUBLIC_KYE})
+        socket.emit(SOCKET_EVENT.THIS_MY_CERTIFCATE, {certifcate: JSON.parse(localStorage.getItem("token"))})
     }
 
     socket.on(SOCKET_EVENT.CRYPTOGRAPHY_ERROR, data => {
@@ -45,6 +60,8 @@ socket.on("connect", function () {
                 app.mode = null
             }
         } catch (e) {
+            console.log(e)
+
             Swal.fire('error', "cryptography error", 'error')
             app.mode = null
         }
@@ -57,6 +74,7 @@ socket.on("connect", function () {
             app.content = data.content
         } catch (e) {
 
+            console.log(e)
             Swal.fire('error', "cryptography error", 'error')
             app.mode = null
         }

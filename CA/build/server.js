@@ -38,7 +38,6 @@ const start = async () => {
   try {
     await (0, _utils.connect)();
     app.listen(_config.port, () => {
-      console.log(`REST API on http://localhost:${_config.port}/its`);
     });
   } catch (e) {}
 };

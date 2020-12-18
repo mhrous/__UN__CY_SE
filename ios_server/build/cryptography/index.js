@@ -21,6 +21,12 @@ Object.defineProperty(exports, "HybridCryptography", {
     return _HybridCryptography.default;
   }
 });
+Object.defineProperty(exports, "Certifcate", {
+  enumerable: true,
+  get: function () {
+    return _certifcate.default;
+  }
+});
 exports.generateKeyPairSync = exports.decrypt = exports.encrypt = exports.getHash = void 0;
 
 var _crypto = _interopRequireDefault(require("crypto"));
@@ -32,6 +38,8 @@ var _SymmetricCryptography = _interopRequireDefault(require("./SymmetricCryptogr
 var _AsymmetricCryptography = _interopRequireDefault(require("./AsymmetricCryptography"));
 
 var _HybridCryptography = _interopRequireDefault(require("./HybridCryptography"));
+
+var _certifcate = _interopRequireDefault(require("./certifcate"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 

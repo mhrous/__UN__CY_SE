@@ -40,16 +40,49 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="61a61e52-081b-47d1-934f-4539b204d76c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ios_ca/src/model/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios_client/js/login.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ios_client/login.html" afterDir="false" />
+    <list default="true" id="61a61e52-081b-47d1-934f-4539b204d76c" name="Default Changelist" comment="[update] add logOut-btn style">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CA 2/src/initKey.js" beforeDir="false" afterPath="$PROJECT_DIR$/CA 2/src/initKey.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CA/build/init_server_certifcate.js" beforeDir="false" afterPath="$PROJECT_DIR$/CA/build/init_server_certifcate.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CA/build/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/CA/build/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_ca/build/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_ca/build/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_ca/build/cryptography/HybridCryptography.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_ca/build/cryptography/HybridCryptography.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_ca/build/cryptography/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_ca/build/cryptography/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_ca/build/initKey.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_ca/build/initKey.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_ca/build/model/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_ca/build/model/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_ca/build/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_ca/build/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_ca/src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_ca/src/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_ca/src/cryptography/HybridCryptography.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_ca/src/cryptography/HybridCryptography.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_ca/src/cryptography/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_ca/src/cryptography/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_ca/src/initKey.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_ca/src/initKey.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_ca/src/model/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_ca/src/model/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_ca/src/privateKey.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_ca/src/publicKey.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_ca/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_ca/src/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_client/CA_PUBLIC_KEY.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_client/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/ios_client/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios_client/js/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_client/js/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios_client/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_client/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios_server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/ios_server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ios_server/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/ios_server/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_client/js/cryptography/AsymmetricCryptography.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_client/js/cryptography/AsymmetricCryptography.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_client/js/cryptography/HybridCryptography.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_client/js/cryptography/HybridCryptography.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_client/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_client/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_client/js/login.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_client/js/login.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_client/js/mySocket.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_client/js/mySocket.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_client/preload.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_client/preload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_server/CA_PUBLIC_KEY.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_server/build/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_server/build/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_server/build/cryptography/HybridCryptography.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_server/build/cryptography/HybridCryptography.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_server/build/cryptography/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_server/build/cryptography/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_server/build/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_server/build/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_server/build/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_server/build/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_server/build/socket.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_server/build/socket.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_server/src/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_server/src/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_server/src/cryptography/HybridCryptography.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_server/src/cryptography/HybridCryptography.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_server/src/cryptography/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_server/src/cryptography/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_server/src/data/1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_server/src/data/2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_server/src/data/djiksfj.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_server/src/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_server/src/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_server/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_server/src/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios_server/src/socket.js" beforeDir="false" afterPath="$PROJECT_DIR$/ios_server/src/socket.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +104,7 @@
   <component name="ProjectId" id="1kukix5OeRWEWydNLcT1JrZMpDu" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -122,7 +156,36 @@
       <workItem from="1608078355959" duration="147000" />
       <workItem from="1608078542657" duration="107000" />
       <workItem from="1608078758964" duration="28000" />
+      <workItem from="1608136885549" duration="765000" />
+      <workItem from="1608137667034" duration="114000" />
+      <workItem from="1608137794329" duration="146000" />
+      <workItem from="1608137953654" duration="29000" />
+      <workItem from="1608139045519" duration="24000" />
+      <workItem from="1608139560054" duration="2913000" />
+      <workItem from="1608144556229" duration="4686000" />
+      <workItem from="1608151944542" duration="612000" />
+      <workItem from="1608153212349" duration="1904000" />
+      <workItem from="1608161237988" duration="64000" />
+      <workItem from="1608161395264" duration="658000" />
+      <workItem from="1608162072844" duration="233000" />
+      <workItem from="1608282838402" duration="1017000" />
+      <workItem from="1608305338106" duration="414000" />
     </task>
+    <task id="LOCAL-00001" summary="oiiuyfg">
+      <created>1608305367909</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1608305367909</updated>
+    </task>
+    <task id="LOCAL-00002" summary="[update] add logOut-btn style">
+      <created>1608305426556</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1608305426556</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,19 +203,24 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="oiiuyfg" />
+    <MESSAGE value="[update] add logOut-btn style" />
+    <option name="LAST_COMMIT_MESSAGE" value="[update] add logOut-btn style" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="761" y="304" width="426" height="475" key="FileChooserDialogImpl" timestamp="1607844171002">
+    <state x="761" y="304" width="426" height="475" key="FileChooserDialogImpl" timestamp="1608288486383">
       <screen x="36" y="0" width="1884" height="1080" />
     </state>
-    <state x="761" y="304" width="426" height="475" key="FileChooserDialogImpl/36.0.1884.1080@36.0.1884.1080" timestamp="1607844171002" />
-    <state x="574" y="277" key="Vcs.Push.Dialog.v2" timestamp="1607058516073">
+    <state x="761" y="304" width="426" height="475" key="FileChooserDialogImpl/36.0.1884.1080@36.0.1884.1080" timestamp="1608288486383" />
+    <state x="574" y="277" width="808" height="532" key="Vcs.Push.Dialog.v2" timestamp="1608305500727">
       <screen x="36" y="0" width="1884" height="1080" />
     </state>
-    <state x="574" y="277" key="Vcs.Push.Dialog.v2/36.0.1884.1080@36.0.1884.1080" timestamp="1607058516073" />
-    <state x="682" y="277" width="592" height="522" key="find.popup" timestamp="1606883190123">
+    <state x="574" y="277" width="808" height="532" key="Vcs.Push.Dialog.v2/36.0.1884.1080@36.0.1884.1080" timestamp="1608305500727" />
+    <state x="682" y="277" width="592" height="522" key="find.popup" timestamp="1608283037399">
       <screen x="36" y="0" width="1884" height="1080" />
     </state>
-    <state x="682" y="277" width="592" height="522" key="find.popup/36.0.1884.1080@36.0.1884.1080" timestamp="1606883190123" />
+    <state x="682" y="277" width="592" height="522" key="find.popup/36.0.1884.1080@36.0.1884.1080" timestamp="1608283037399" />
     <state x="363" y="247" key="run.anything.popup" timestamp="1606573075386">
       <screen x="36" y="0" width="1884" height="1080" />
     </state>
@@ -167,17 +235,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/ios_server/src/socket.js</url>
-          <line>165</line>
+          <line>240</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/ios_client/js/mySocket.js</url>
-          <line>51</line>
+          <line>68</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/ios_server/src/cryptography/index.js</url>
-          <line>37</line>
+          <line>38</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">

@@ -19,48 +19,95 @@ var _config = require("./config");
 
 var _model = require("./model");
 
+var _cryptography = require("./cryptography");
+
+var _CA_KEY = require("./CA_KEY");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const start = async () => {
   await (0, _db.connect)();
   console.log((0, _utils.blue)("connect to DB"));
-  console.log(_utils.line);
+  console.log(_utils.line); // 
+
   const app = (0, _express.default)();
   app.use(_bodyParser.default.json());
   app.use((0, _cors.default)());
+  const hybridCryptography = new _cryptography.HybridCryptography(_CA_KEY.publicKey, _CA_KEY.privateKey);
+  const certifcate = new _cryptography.Certifcate();
   app.post("/certificate", async (req, res) => {
-    const {
-      body: {
-        userName,
+    try {
+      const {
+        body
+      } = req;
+      hybridCryptography.setReceiverPublicKey(body.publicKey);
+      const decryptData = (0, _cryptography.decrypt)({
+        data: body.encryptData,
+        hybridCryptography
+      });
+      const {
         password,
-        publicKey
+        userName
+      } = decryptData;
+
+      if (decryptData == null) {
+        return res.status(500).json({
+          error: "someone play with data"
+        });
       }
-    } = req; // Users.create({
-    //     userName,
-    //     password,
-    //     name:userName,
-    //     role:"user"
-    // })
 
-    const user = await _model.Users.findOne({
-      userName
-    }).exec();
+      const user = await _model.Users.findOne({
+        userName
+      }).exec();
 
-    if (!user) {
-      return res.status(400).json({
-        error: "error in userName or password"
+      if (!user) {
+        const encryptData = (0, _cryptography.encrypt)({
+          hybridCryptography,
+          data: {
+            error: "error in userName or password"
+          }
+        });
+        return res.status(400).json(encryptData);
+      }
+
+      const correctPassword = await user.checkPassword(password);
+
+      if (!correctPassword) {
+        const encryptData = (0, _cryptography.encrypt)({
+          hybridCryptography,
+          data: {
+            error: "error in userName or password"
+          }
+        });
+        return res.status(400).json(encryptData);
+      }
+
+      const {
+        role,
+        name,
+        can
+      } = user;
+      const data = certifcate.bulid(body.publicKey, {
+        userName,
+        name,
+        role,
+        can
       });
-    }
-
-    const correctPassword = await user.checkPassword(password);
-
-    if (!correctPassword) {
-      return res.status(400).json({
-        error: "error in userName or password"
+      const encryptData = (0, _cryptography.encrypt)({
+        hybridCryptography,
+        data
       });
+      return res.status(200).json(encryptData);
+    } catch (e) {
+      console.log(e);
+      const encryptData = (0, _cryptography.encrypt)({
+        hybridCryptography,
+        data: {
+          error: " "
+        }
+      });
+      return res.status(400).json(encryptData);
     }
-
-    return {};
   }); //
 
   app.listen(_config.PORT, () => {

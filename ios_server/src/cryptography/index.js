@@ -4,6 +4,7 @@ import {TYPE_ACTIVE, TYPE_LIST,PASSPHRASE} from "../config"
 import SymmetricCryptography from "./SymmetricCryptography"
 import AsymmetricCryptography from "./AsymmetricCryptography"
 import HybridCryptography from "./HybridCryptography"
+import Certifcate from "./certifcate"
 
 const getHash = (pwd) => crypto.createHash('md5').update(pwd).digest('hex');
 
@@ -56,5 +57,6 @@ export  {
     HybridCryptography,
     AsymmetricCryptography,
     SymmetricCryptography,
-    generateKeyPairSync
+    generateKeyPairSync,
+    Certifcate
 }
