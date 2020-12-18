@@ -19,6 +19,12 @@ body {
     left: 100%;
     transform: translate(-100%, -50%);
 }
+.logOut-btn{
+    top: 50%;
+    position: absolute;
+    right: 100%;
+    transform: translate(100%, -50%);
+}
 .card-content{
     height: calc(100vh - 300px);
 }
