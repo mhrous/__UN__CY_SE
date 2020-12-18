@@ -9,15 +9,15 @@ var _path = require("path");
 
 const PASSPHRASE = "123456789";
 exports.PASSPHRASE = PASSPHRASE;
+const duration = 1;
+exports.duration = duration;
 const PORT = 4000;
 exports.PORT = PORT;
 const TYPE_LIST = {
-  SYMMETRIC: "symmetric",
-  ASYMMETRIC: "asymmetric",
   HYBRID: "hybrid"
 };
 exports.TYPE_LIST = TYPE_LIST;
 const DB_URL = "mongodb://localhost:27017/ios_ca";
 exports.DB_URL = DB_URL;
-const TYPE_ACTIVE = TYPE_LIST.SYMMETRIC;
+const TYPE_ACTIVE = TYPE_LIST.HYBRID;
 exports.TYPE_ACTIVE = TYPE_ACTIVE;
